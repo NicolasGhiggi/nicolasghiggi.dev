@@ -73,7 +73,7 @@ const Page = () => {
                 </CardHeader>
                 <CardContent>
                     <form id="form-contact" onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
-                        <FieldGroup className="flex-row items-center gap-4">
+                        <FieldGroup className="md:flex-row md:items-center gap-4">
                             <Controller
                                 name="name"
                                 control={form.control}
@@ -164,7 +164,7 @@ const Page = () => {
                                                 {...field}
                                                 id="form-contact-message"
                                                 aria-invalid={fieldState.invalid}
-                                                placeholder="Describe your project, idea or collaboration in detail. I will get back to you as soon as possible."
+                                                placeholder="Describe your idea. I will get back to you as soon as possible."
                                                 rows={10}
                                                 maxLength={2000}
                                                 className="max-h-40 resize-none"
