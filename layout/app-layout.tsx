@@ -11,8 +11,8 @@ const AppLayout: FC<AppLayoutProps> = ({ children }) => (
     <main className="relative h-screen w-full max-w-5xl flex flex-col items-center mx-auto">
         <AppHeader />
         {children}
-        <AppTabBar />
         <AppFooter />
+        <AppTabBar />
     </main>
 )
 
