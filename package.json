@@ -16,6 +16,8 @@
     "@hookform/resolvers": "^5.4.0",
     "@rexa-developer/tiks": "^0.3.0",
     "@shadcn/react": "^0.2.1",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "axios": "^1.18.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

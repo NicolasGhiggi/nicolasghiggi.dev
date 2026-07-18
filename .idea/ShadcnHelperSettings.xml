@@ -2862,6 +2862,18 @@
         <option name="homepage" value="https://ui.vllnt.com" />
         <option name="urlTemplate" value="https://ui.vllnt.com/r/{name}.json" />
       </RegistryConfigState>
+      <RegistryConfigState>
+        <option name="id" value="central-grainly-icons" />
+        <option name="name" value="Grainly-icons" />
+        <option name="namespace" value="@grainly-icons" />
+        <option name="baseUrl" value="https://grainlyicons.abhii.space/r" />
+        <option name="stylePath" value="/{name}.json" />
+        <option name="type" value="community" />
+        <option name="enabled" value="false" />
+        <option name="description" value="Animated grainy icons" />
+        <option name="homepage" value="https://grainlyicons.abhii.space" />
+        <option name="urlTemplate" value="https://grainlyicons.abhii.space/r/{name}.json" />
+      </RegistryConfigState>
     </registryConfigs>
   </component>
 </project>
