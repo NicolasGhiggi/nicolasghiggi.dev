@@ -38,26 +38,28 @@ export const metadata: Metadata = {
     description: `Portfolio of ${USER.name}, ${USER.qualification}.`,
     icons: {
         icon: [
-            { url: "/favicon/favicon.ico" },
             {
-                url: "/favicon/favicon-32x32.png",
-                sizes: "32x32",
+                url: "/favicon/favicon.ico",
+            },
+            {
+                url: "/favicon/icon1.png",
+                sizes: "512x512",
                 type: "image/png",
             },
             {
-                url: "/favicon/favicon-16x16.png",
-                sizes: "16x16",
-                type: "image/png",
+                url: "/favicon/icon0.svg",
+                type: "image/svg+xml",
             },
         ],
         apple: [
             {
-                url: "/favicon/apple-touch-icon.png",
+                url: "/favicon/apple-icon.png",
                 sizes: "180x180",
+                type: "image/png",
             },
         ],
     },
-    manifest: "/favicon/site.webmanifest",
+    manifest: "/favicon/manifest.json",
 }
 
 interface RootLayoutProps {
