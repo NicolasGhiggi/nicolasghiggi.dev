@@ -95,7 +95,7 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
                   <script
                     defer
                     src="https://cloud.umami.is/script.js"
-                    data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+                    data-website-id={process.env.UMAMI_WEBSITE_ID}
                   ></script>
             </body>
         </html>
