@@ -78,6 +78,13 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
             )}
             data-scroll-behavior="smooth"
         >
+            <head>
+                  <script
+                    defer
+                    src="https://cloud.umami.is/script.js"
+                    data-website-id={process.env.UMAMI_WEBSITE_ID}
+                  ></script>
+            </head>
             <body>
                   <ThemeProvider
                       defaultTheme="dark"
@@ -92,11 +99,6 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
                           <SpeedInsights />
                       </TooltipProvider>
                   </ThemeProvider>
-                  <script
-                    defer
-                    src="https://cloud.umami.is/script.js"
-                    data-website-id={process.env.UMAMI_WEBSITE_ID}
-                  ></script>
             </body>
         </html>
     )
