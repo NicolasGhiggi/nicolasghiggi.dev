@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
     return (
-        <main className="container mx-auto max-w-6xl py-24 px-6">
+        <main className="w-full max-w-6xl mx-auto py-24 px-6">
             <div className="max-w-2xl flex flex-col gap-3">
                 <p className="font-mono text-sm text-muted-foreground">
                     Skills

@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 import { Image } from "@/components/ui/image"
@@ -7,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { FlipSentences } from "@/components/ui/flip-sentences"
 
 import { USER } from "@/data/app"
+// import { Link } from "@/i18n/navigation"
 import { getGreeting } from "@/lib/get-greeting"
 import ProfileImage from "@/public/images/profile.png"
 
@@ -46,13 +48,16 @@ const HeroSection = () => {
                 </p>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
-                    <Button>
-                        View projects
-                    </Button>
-
-                    <Button variant="outline">
-                        Contact me
-                    </Button>
+                    <Link href="/projects">
+                        <Button>
+                            View projects
+                        </Button>
+                    </Link>
+                    <Link href="/contact">
+                        <Button variant="outline">
+                            Contact me
+                        </Button>
+                    </Link>
                 </div>
             </div>
 

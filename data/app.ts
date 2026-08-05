@@ -46,27 +46,27 @@ export const USER = {
 export const ROUTES = [
     { 
         path: "/",
-        label: "Home",
+        label: "home",
         icon: HomeIcon
     },
     { 
         path: "/projects",
-        label: "Projects",
+        label: "projects",
         icon: FolderKanbanIcon
     },
     { 
         path: "/skills",
-        label: "Skills",
+        label: "skills",
         icon: Code2Icon
     },
     { 
         path: "/experiences",
-        label: "Experiences",
+        label: "experiences",
         icon: BriefcaseBusinessIcon 
     },
     { 
         path: "/contact",
-        label: "Contact",
+        label: "contact",
         icon: MailIcon
     },
 ]

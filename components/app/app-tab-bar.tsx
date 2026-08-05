@@ -1,17 +1,17 @@
 "use client"
 
 import Link from "next/link"
+import { SearchIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
+import { SearchDialog } from "@/components/search-dialog"
 import { ROUTES } from "@/data/app"
-import { SearchDialog } from "../search-dialog"
-import { SearchIcon } from "lucide-react"
 
 const AppTabBar = () => {
     const pathname = usePathname()
 
     return (
-        <div className="sticky lg:hidden z-40 bottom-0 left-0 w-full p-3 flex justify-center">
+        <div className="sticky md:hidden z-40 bottom-0 left-0 w-full p-3 flex justify-center">
             <nav className="flex items-center gap-1 rounded-full bg-background/80 backdrop-blur-md border shadow-lg p-2">
                 {ROUTES.map((route) => {
                     const active = pathname === route.path
@@ -21,6 +21,7 @@ const AppTabBar = () => {
                         <Link key={route.path} href={route.path}>
                             <Button
                                 size="icon"
+                                aria-label={"link " + route.path}
                                 variant={active ? "default" : "ghost"}
                                 className={`size-11 rounded-full transition-all ${active ? "scale-105" : ""}`}
                             >
@@ -31,11 +32,16 @@ const AppTabBar = () => {
                         </Link>
                     )
                 })}
-                <SearchDialog render={
-                    <Button size="icon" variant={"ghost"} className={`size-11 rounded-full`}>
+                <SearchDialog>
+                    <Button
+                        size="icon"
+                        variant={"ghost"}
+                        aria-label="Search button"
+                        className={`size-11 rounded-full`}
+                    >
                         <SearchIcon className="size-5" />
                     </Button>
-                } />
+                </SearchDialog>
             </nav>
         </div>
     )

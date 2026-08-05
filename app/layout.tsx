@@ -1,6 +1,9 @@
 import { Metadata } from "next"
+// import { getMessages } from "next-intl/server"
 import { type FC, type ReactNode } from "react"
+// import { NextIntlClientProvider } from "next-intl"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { JetBrains_Mono, Outfit, Space_Grotesk } from "next/font/google"
 
 import "@/styles/globals.css"
@@ -9,11 +12,9 @@ import { AppLayout } from "@/layout/app-layout"
 
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
-
-import { ThemeProvider } from "@/providers/theme-provider"
+import { ThemeProvider, ThemeHotkey } from "@/providers/theme-provider"
 
 import { USER } from "@/data/app"
-import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const fontHeading = Space_Grotesk({
     subsets: ['latin'],
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
         template: `%s – ${USER.name}`,
         default: `${USER.name} - ${USER.qualification}`,
     },
-    description: `Portfolio of ${USER.name}, ${USER.qualification}.`,
+    // description: `Portfolio of ${USER.name}, ${USER.qualification}.`,
     icons: {
         icon: [
             {
@@ -64,12 +65,18 @@ export const metadata: Metadata = {
 
 interface RootLayoutProps {
     children: ReactNode
+    params: Promise<{
+        locale: string
+    }>
 }
 
-const RootLayout: FC<RootLayoutProps> = ({ children }) => {
+const RootLayout: FC<RootLayoutProps> = async ({ children, params }) => {
+    const { locale } = await params;
+    // const messages = await getMessages();
+
     return (
         <html
-            lang="en"
+            lang={locale}
             suppressHydrationWarning
             className={cn(
                 fontSans.variable,
@@ -78,27 +85,23 @@ const RootLayout: FC<RootLayoutProps> = ({ children }) => {
             )}
             data-scroll-behavior="smooth"
         >
-            <head>
-                  <script
-                    defer
-                    src="https://cloud.umami.is/script.js"
-                    data-website-id={process.env.UMAMI_WEBSITE_ID}
-                  ></script>
-            </head>
             <body>
-                  <ThemeProvider
-                      defaultTheme="dark"
-                      storageKey="nghiggi-portfolio-theme"
-                  >
-                      <TooltipProvider>
-                          <AppLayout>
-                              {children}
-                          </AppLayout>
-                          <Toaster />
-                          <Analytics />
-                          <SpeedInsights />
-                      </TooltipProvider>
-                  </ThemeProvider>
+                {/*<NextIntlClientProvider locale={locale} messages={messages}>*/}
+                    <ThemeProvider
+                        storageKey="nghiggi-portfolio-theme"
+                        nonce="theme-script"
+                    >
+                        <ThemeHotkey />
+                        <TooltipProvider>
+                            <AppLayout>
+                                {children}
+                            </AppLayout>
+                            <Toaster />
+                            <Analytics />
+                            <SpeedInsights />
+                        </TooltipProvider>
+                    </ThemeProvider>
+                {/*</NextIntlClientProvider>*/}
             </body>
         </html>
     )

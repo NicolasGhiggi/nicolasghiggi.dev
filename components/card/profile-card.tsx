@@ -14,12 +14,12 @@ import {
 import {
     Card,
     CardContent,
-    CardFooter, CardHeader,
- CardTitle, CardDescription, CardAction
+    CardFooter, 
+    CardHeader,
+    CardTitle, 
+    CardAction
 } from "@/components/ui/card"
-
 import { Badge } from "@/components/ui/badge"
-import { Image } from "@/components/ui/image"
 import { Button } from "@/components/ui/button"
 import { CopyButton } from "@/components/ui/copy-button"
 import {
@@ -30,8 +30,6 @@ import {
 
 import { USER } from "@/data/app"
 import { getTimezoneInfo } from "@/lib/timezone"
-
-import ProfileImage from "@/public/images/profile-square.png"
 
 
 const ProfileCard = () => {
