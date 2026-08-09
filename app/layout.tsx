@@ -1,7 +1,5 @@
 import { Metadata } from "next"
-// import { getMessages } from "next-intl/server"
 import { type FC, type ReactNode } from "react"
-// import { NextIntlClientProvider } from "next-intl"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { JetBrains_Mono, Outfit, Space_Grotesk } from "next/font/google"
@@ -37,7 +35,7 @@ export const metadata: Metadata = {
         template: `%s – ${USER.name}`,
         default: `${USER.name} - ${USER.qualification}`,
     },
-    // description: `Portfolio of ${USER.name}, ${USER.qualification}.`,
+    description: `Portfolio of ${USER.name}, ${USER.qualification}.`,
     icons: {
         icon: [
             {
@@ -64,16 +62,7 @@ export const metadata: Metadata = {
     manifest: "/favicon/manifest.json",
 }
 
-interface RootLayoutProps {
-    children: ReactNode
-    params: Promise<{
-        locale: string
-    }>
-}
-
-const RootLayout = async ({ children, params }: RootLayoutProps) => {
-    const { locale } = await params;
-    // const messages = await getMessages();
+const RootLayout = async ({ children }: { children: ReactNode }) => {
 
     return (
         <html
@@ -87,26 +76,24 @@ const RootLayout = async ({ children, params }: RootLayoutProps) => {
             data-scroll-behavior="smooth"
         >
             <body>
-                {/*<NextIntlClientProvider locale={locale} messages={messages}>*/}
-                    <ThemeProvider
-                        storageKey="nghiggi-portfolio-theme"
-                        nonce="theme-script"
-                    >
-                        <ThemeHotkey />
-                        <TooltipProvider>
-                            <AppLayout>
-                                {children}
-                            </AppLayout>
-                            <Toaster />
-                            <Analytics />
-                            <SpeedInsights />
-                            <OpenPanelComponent
-                                clientId={process.env.CLIENT_ID || ""}
-                                trackScreenViews={true}
-                            />
-                        </TooltipProvider>
-                    </ThemeProvider>
-                {/*</NextIntlClientProvider>*/}
+                <ThemeProvider
+                    storageKey="nghiggi-portfolio-theme"
+                    nonce="theme-script"
+                >
+                    <ThemeHotkey />
+                    <TooltipProvider>
+                        <AppLayout>
+                            {children}
+                        </AppLayout>
+                        <Toaster />
+                        <Analytics />
+                        <SpeedInsights />
+                        <OpenPanelComponent
+                            clientId={process.env.CLIENT_ID || ""}
+                            trackScreenViews={true}
+                        />
+                    </TooltipProvider>
+                </ThemeProvider>
             </body>
         </html>
     )
