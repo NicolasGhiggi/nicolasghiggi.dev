@@ -145,11 +145,16 @@ const stacks = [
         ],
     },
     {
-        name: "Backend & Database",
+        name: "Backend",
         items: [
             { name: "Node.js", icon: SiNodedotjs },
             { name: "Laravel", icon: SiLaravel },
             { name: "Flask", icon: SiFlask },
+        ],
+    },
+    {
+        name: "Databases",
+        items: [
             { name: "MySQL", icon: SiMysql },
             { name: "SQLite", icon: SiSqlite },
             { name: "MongoDB", icon: SiMongodb },
@@ -179,7 +184,7 @@ const SKILLS = {
     categories: categories,
     principles: principles,
     learning: learning,
-    stacks: stacks,
+    stack: stacks,
 }
 
 export default SKILLS

@@ -1,0 +1,425 @@
+---
+title: "Cleanlife GmbH Websites"
+description: "Redesigned and developed two websites for Cleanlife GmbH: a public-facing company website and a dedicated customer portal."
+image: "/images/projects/cleanlife-gmbH-websites/cover.png"
+date: "2026-08-08"
+status: "completed"
+technologies:
+  - Laravel
+  - Livewire
+  - MySQL
+  - JavaScript
+  - Blade
+  - Queue
+  - domPDF
+  - jsPDF
+github: "https://github.com/NicolasGhiggi/sitemap-generator"
+topics:
+  - Web Development
+  - Laravel
+  - Customer Portal
+  - SEO
+  - PDF Generation
+  - Security
+  - Performance
+  - Responsive Design
+  - Single Sign-On
+---
+
+import { Shield, ListChecks, Lock, Key } from "lucide-react"
+import { BrandIcon } from "../../components/ui/brand-icon"
+import { LogosCarousel } from "../../components/logos-carousel"
+
+# Cleanlife GmbH Websites
+
+## Overview
+
+Cleanlife GmbH is a Swiss company that provides ecological cleaning products and related services. The project involved completely redesigning and rebuilding two existing PHP-based websites into a modern, secure, and maintainable Laravel ecosystem.
+
+The project started when the client approached my school looking for someone who could modernize their existing website. The original website had been developed several years earlier using traditional PHP, without a modern framework or middleware architecture.
+
+The goal was not simply to redesign the interface, but to rebuild the entire platform with a stronger technical foundation while improving security, SEO, performance, usability, and maintainability.
+
+The result was a new ecosystem consisting of two interconnected applications:
+
+- A **public-facing company website** for presenting products, services, and company information.
+- A **dedicated customer portal** for authenticated customers, orders, invoices, accounts, and purchasing.
+
+Both applications were rebuilt using Laravel and share authentication through a single sign-on mechanism, allowing customers to move between the two websites without having to authenticate again.
+
+![Cover](/images/projects/cleanlife-gmbH-websites/cover.png)
+
+---
+
+## The Challenge
+
+The original website was functional, but its architecture made it increasingly difficult to maintain and extend.
+
+The main goals of the project were therefore:
+
+- Replace the legacy PHP architecture with Laravel.
+- Introduce a more structured and maintainable application architecture.
+- Modernize the visual design and user experience.
+- Improve search engine optimization.
+- Strengthen application security.
+- Improve performance and reliability.
+- Provide a better product browsing and purchasing experience.
+- Introduce a dedicated customer portal.
+- Connect the two websites through shared authentication.
+
+Rather than modifying the existing codebase incrementally, the decision was made to rebuild the applications using a modern framework and a cleaner architecture.
+
+### Before
+
+![Old website](/images/projects/cleanlife-gmbH-websites/old-website.png)
+
+### After
+
+![New website](/images/projects/cleanlife-gmbH-websites/new-website.png)
+
+---
+
+## Architecture
+
+The project is divided into two main applications.
+
+### Public Website
+
+The public website is the main online presence of Cleanlife GmbH and is accessible to both visitors and authenticated customers.
+
+It contains:
+
+- Product catalog
+- Product categories and subcategories
+- Product aggregations
+- Product information and commercial data
+- Shopping cart
+- Quote requests
+- Contact and inquiry forms
+- Services section
+- Company information
+- Product catalogs
+- Search-engine-optimized pages
+
+The product catalog is structured into categories, subcategories, and product aggregations, making it possible to organize a large number of products while keeping navigation understandable.
+
+Visitors can browse products and add them to their cart. Authenticated users can additionally submit quote requests based on the products they have selected.
+
+### Customer Portal
+
+The second application is a dedicated portal for Cleanlife customers.
+
+After authentication, customers can access a personalized dashboard containing information related to their business and purchases.
+
+The portal includes:
+
+- Customer dashboard
+- Product browsing
+- Purchased products
+- Shopping cart
+- Checkout
+- Order confirmation emails
+- Order information
+- Invoices
+- Personal account information
+- Business group management
+- User management
+- Password reset
+
+There is intentionally no public registration system. Customer accounts are created by an administrator, providing the company with greater control over who can access the customer portal.
+
+Users belonging to the same business group can also be managed from within the portal, allowing authorized customers to add and manage additional users associated with their organization.
+
+![Cleanlife architecture](/images/projects/cleanlife-gmbH-websites/architecture.svg)
+
+---
+
+## Product Catalog
+
+One of the more complex parts of the project was the product catalog.
+
+Products are organized through a hierarchical structure containing categories, subcategories, and aggregations.
+
+Each product can contain different types of information, including:
+
+- Product codes
+- Descriptions
+- Commercial information
+- Product files
+- Related products
+- Categories and aggregations
+
+The catalog was designed to support a large product database while keeping the browsing experience simple for users.
+
+The product pages were also optimized for search engines, with dedicated metadata and structured page content.
+
+![Product catalog hierarchy](/images/projects/cleanlife-gmbH-websites/catalog-hierarchy.svg)
+
+---
+
+## PDF Catalog Generation
+
+The public website also provides dynamically generated product catalogs.
+
+Users can generate a complete catalog or generate a catalog for a specific product category.
+
+The PDFs are generated dynamically from the current product data rather than relying on static documents.
+
+This required handling:
+
+- Large amounts of product data
+- Product images
+- Product information
+- Category structures
+- Generated QR codes
+- Pagination
+- PDF layouts
+- Different catalog selections
+
+Both server-side and client-side PDF generation approaches were used depending on the specific use case.
+
+For server-side generation, the project uses **domPDF**, while **jsPDF** is used for browser-side PDF generation where appropriate.
+
+Because large catalogs can require significant processing time and memory, the PDF generation process was optimized to avoid unnecessary database queries and reduce the amount of data loaded into memory at once.
+
+![PDF catalog generation](/images/projects/cleanlife-gmbH-websites/pdf-generation.png)
+
+---
+
+## Customer and Quote Requests
+
+The public website allows customers to build a cart while browsing the product catalog.
+
+Authenticated customers can then use their selected products to request a quote.
+
+The system also provides dedicated forms for general inquiries and questions, allowing visitors and customers to contact Cleanlife without necessarily creating a quote.
+
+Email notifications are used to communicate these requests to the relevant recipients.
+
+---
+
+## Checkout and Orders
+
+The customer portal contains a complete purchasing flow.
+
+Customers can:
+
+1. Browse available products.
+2. Add products to their cart.
+3. Review their cart.
+4. Proceed to checkout.
+5. Submit an order.
+6. Receive an email confirmation.
+
+Orders are then associated with the customer's business account and can be reviewed through the portal.
+
+The portal also provides access to invoice information, giving customers a centralized location for their commercial documents.
+
+![Checkout and orders flow](/images/projects/cleanlife-gmbH-websites/checkout-flow.svg)
+
+---
+
+## Authentication and Single Sign-On
+
+One of the important architectural aspects of the project was connecting the authentication systems of the two applications.
+
+A customer who logs into one Cleanlife website should not have to authenticate again when accessing the other.
+
+To achieve this, a shared authentication mechanism was implemented between the applications.
+
+Authentication information is securely transferred between the domains and validated before the user session is established.
+
+This provides a seamless experience while keeping authentication controlled and centralized.
+
+The system also ensures that authentication data cannot simply be modified by the client, using cryptographic verification to validate the exchanged information.
+
+![Sso sequence](/images/projects/cleanlife-gmbH-websites/sso-sequence.svg)
+
+---
+
+## Security
+
+Security was one of the main reasons for rebuilding the original application.
+
+The previous website did not provide the same level of protection and structure expected from a modern web application.
+
+The new implementation introduced multiple security layers.
+
+<div className="flex items-center gap-2 mt-[1em]">
+  <Shield size={20} />
+  <h3 className="m-0">Content Security Policy</h3>
+</div>
+
+
+A strict **Content Security Policy (CSP)** was implemented to control which scripts, styles, images, fonts, frames, and network connections can be loaded by the browser.
+
+This helps reduce the risk of attacks such as Cross-Site Scripting (XSS) and limits the impact of accidentally introduced malicious resources.
+
+The CSP was also carefully configured to work with the JavaScript frameworks and libraries used throughout the applications.
+
+<div className="flex items-center gap-2 mt-[1em]">
+  <ListChecks size={20} />
+  <h3 className="m-0">Security Headers</h3>
+</div>
+
+Additional HTTP security headers were introduced to improve the overall security posture of the applications.
+
+These headers help control browser behavior and provide additional protection against common web-based attacks.
+
+<div className="flex items-center gap-2 mt-[1em]">
+  <Lock size={20} />
+  <h3 className="m-0">CSRF Protection</h3>
+</div>
+
+Laravel's CSRF protection is used throughout forms and state-changing requests.
+
+This protects authenticated users against Cross-Site Request Forgery attacks by requiring requests to contain a valid CSRF token.
+
+<div className="flex items-center gap-2 mt-[1em]">
+  <Key size={20} />
+  <h3 className="m-0">Authentication Security</h3>
+</div>
+
+Authentication is handled through Laravel's authentication infrastructure rather than custom PHP session logic.
+
+The shared authentication system between the two applications also validates exchanged authentication data cryptographically before creating a session.
+
+---
+
+## SEO
+
+Search engine optimization was another major part of the project.
+
+The original website required significant improvements in terms of technical SEO and page structure.
+
+The new website was designed with SEO in mind from the beginning.
+
+This included:
+
+- SEO-friendly URLs
+- Page titles
+- Meta descriptions
+- Canonical URLs
+- Structured data
+- Sitemap generation
+- Optimized page structure
+- Proper heading hierarchy
+- Product-specific metadata
+- Search-engine-friendly product pages
+- Improved internal linking
+
+Product pages were especially important because the website contains a large catalog of products that should be individually discoverable through search engines.
+
+The website also generates a sitemap to help search engines efficiently discover and index the available pages.
+
+---
+
+## Performance
+
+Performance optimization was particularly important because of the size of the product catalog and the amount of information displayed on some pages.
+
+Several areas were optimized, including:
+
+- Database queries
+- Product retrieval
+- Category and aggregation queries
+- PDF generation
+- Asset loading
+- JavaScript execution
+- Server-side processing
+
+Care was taken to avoid unnecessary database queries and to retrieve only the information required by each page or operation.
+
+The PDF generation system was also optimized because generating a complete product catalog can involve processing a large amount of data and multiple images.
+
+---
+
+## Responsive Design
+
+Both applications were designed to work across different screen sizes.
+
+The interfaces were redesigned to provide a consistent experience on:
+
+- Desktop computers
+- Laptops
+- Tablets
+- Mobile devices
+
+Particular attention was given to product browsing, navigation, forms, shopping carts, and the customer dashboard so that the applications remain usable on smaller screens.
+
+---
+
+## Email Communication
+
+Email is integrated into several important workflows.
+
+The applications can send emails for:
+
+- Quote requests
+- General inquiries
+- Order confirmations
+- Password reset requests
+- Other customer-related notifications
+
+This allows important actions performed through the websites to be communicated automatically without requiring manual intervention from the company.
+
+---
+
+## Technology Stack
+
+The project was primarily built using:
+
+- **Laravel** for the application backend and architecture.
+- **Livewire** for interactive server-driven components.
+- **MySQL** for application and product data.
+- **JavaScript** for client-side interactions and browser functionality.
+- **Queue** for asynchronous processing where appropriate.
+- **domPDF** for server-side PDF generation.
+- **jsPDF** for client-side PDF generation.
+
+Laravel provided the foundation for routing, authentication, middleware, validation, database access, security, and application structure.
+
+<LogosCarousel className="w-full pt-10 text-foreground dark:hidden">
+  <BrandIcon brand="laravel" color="black" className="h-20 w-auto" />
+  <BrandIcon brand="livewire" color="black" className="h-20 w-auto" />
+  <BrandIcon brand="mysql" color="black" className="h-20 w-auto" />
+  <BrandIcon brand="composer" color="black" className="h-20 w-auto" />
+  <BrandIcon brand="html5" color="black" className="h-20 w-auto" />
+  <BrandIcon brand="css" color="black" className="h-20 w-auto" />
+  <BrandIcon brand="javascript" color="black" className="h-20 w-auto" />
+  <BrandIcon brand="php" color="black" className="h-20 w-auto" />
+</LogosCarousel>
+<LogosCarousel className="w-full pt-10 text-foreground hidden dark:grid">
+  <BrandIcon brand="laravel" color="white" className="h-20 w-auto" />
+  <BrandIcon brand="livewire" color="white" className="h-20 w-auto" />
+  <BrandIcon brand="mysql" color="white" className="h-20 w-auto" />
+  <BrandIcon brand="composer" color="white" className="h-20 w-auto" />
+  <BrandIcon brand="html5" color="white" className="h-20 w-auto" />
+  <BrandIcon brand="css" color="white" className="h-20 w-auto" />
+  <BrandIcon brand="javascript" color="white" className="h-20 w-auto" />
+  <BrandIcon brand="php" color="white" className="h-20 w-auto" />
+</LogosCarousel>
+
+---
+
+## Results
+
+The project transformed the original legacy PHP website into a modern web ecosystem consisting of two interconnected applications.
+
+The new system provides Cleanlife GmbH with:
+
+- A modern public website.
+- A structured product catalog.
+- A dedicated customer portal.
+- Online cart and checkout functionality.
+- Quote and inquiry management.
+- Dynamically generated product catalogs.
+- Customer and business account management.
+- Invoice access.
+- Shared authentication between applications.
+- Improved SEO.
+- Stronger security.
+- Better maintainability.
+- A more modern and responsive user experience.
+
+The project was a complete redevelopment rather than a simple visual redesign, requiring work across the frontend, backend, database, authentication, security, SEO, PDF generation, and application architecture.

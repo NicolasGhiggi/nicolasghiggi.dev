@@ -3,8 +3,8 @@ import { USER } from "@/data/app"
 
 const AppFooter = () => {
     return (
-        <footer className="w-full p-2 mt-auto">
-            <nav className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-4 rounded-xl border bg-background p-4 shadow-md md:flex-row">
+        <footer className="w-full p-4 bg-card border-t mt-auto">
+            <nav className="mx-auto flex w-full max-w-5xl flex-col items-center justify-between gap-4 md:flex-row">
                 <div className="flex flex-wrap items-center justify-center gap-2 text-center md:justify-start">
                     <span>Developed with</span>
 

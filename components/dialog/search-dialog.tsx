@@ -14,10 +14,10 @@ import { useHotKeys } from "@/hooks/use-hot-keys"
 import { Source } from "@/types/source"
 
 interface SearchDialogProps {
-    render: ReactElement
+    children: ReactElement
 }
 
-const SearchDialog: FC<SearchDialogProps> = ({ render }) => {
+const SearchDialog: FC<SearchDialogProps> = ({ children }) => {
     const router = useRouter()
     const [open, setOpen] = useState<boolean>(false)
     const [source, setSource] = useState<Source | null>(null)
@@ -54,7 +54,7 @@ const SearchDialog: FC<SearchDialogProps> = ({ render }) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger render={render} />
+            <DialogTrigger render={children} />
             <DialogContent showCloseButton={false}>
                 <DialogHeader>
                     <InputGroup>

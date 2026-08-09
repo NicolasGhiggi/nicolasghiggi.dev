@@ -1,11 +1,12 @@
 "use client"
 
 import { useTheme } from "next-themes"
-import { MoonIcon, SunIcon } from "lucide-react"
 
 import { Kbd } from "@/components/ui/kbd"
 import { Button } from "@/components/ui/button"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
+import { SunIcon } from "@/components/ui/sun"
+import { MoonIcon } from "@/components/ui/moon"
 
 const ThemeToggle = () => {
     const { resolvedTheme, setTheme } = useTheme()

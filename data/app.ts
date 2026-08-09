@@ -1,6 +1,6 @@
 import { SiDailydotdev } from "react-icons/si"
 import { LuGithub, LuLinkedin } from "react-icons/lu"
-import { BriefcaseBusinessIcon, Code2Icon, FolderKanbanIcon, HomeIcon, MailIcon } from "lucide-react"
+import { FolderKanbanIcon, HomeIcon, MailIcon, NotebookTextIcon } from "lucide-react"
 
 export const SOURCE_CODE_GITHUB_REPO = "NicolasGhiggi/nicolasghiggi.dev"
 
@@ -46,27 +46,22 @@ export const USER = {
 export const ROUTES = [
     { 
         path: "/",
-        label: "Home",
+        label: "home",
         icon: HomeIcon
     },
     { 
         path: "/projects",
-        label: "Projects",
+        label: "projects",
         icon: FolderKanbanIcon
     },
     { 
-        path: "/skills",
-        label: "Skills",
-        icon: Code2Icon
-    },
-    { 
-        path: "/experiences",
-        label: "Experiences",
-        icon: BriefcaseBusinessIcon 
+        path: "/blog",
+        label: "blog",
+        icon: NotebookTextIcon
     },
     { 
         path: "/contact",
-        label: "Contact",
+        label: "contact",
         icon: MailIcon
     },
 ]

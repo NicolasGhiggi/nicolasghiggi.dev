@@ -1,5 +1,6 @@
 "use client"
 
+import Link from "next/link"
 import { useEffect, useState } from "react"
 
 import { Image } from "@/components/ui/image"
@@ -7,8 +8,10 @@ import { Button } from "@/components/ui/button"
 import { FlipSentences } from "@/components/ui/flip-sentences"
 
 import { USER } from "@/data/app"
+// import { Link } from "@/i18n/navigation"
 import { getGreeting } from "@/lib/get-greeting"
 import ProfileImage from "@/public/images/profile.png"
+import { ArrowUpRight } from "lucide-react"
 
 const HeroSection = () => {
     const [greeting, setGreeting] = useState("Hello")
@@ -19,7 +22,7 @@ const HeroSection = () => {
     }, [])
 
     return (
-        <section className="flex xl:min-h-screen w-full flex-col items-center justify-center gap-12 pt-40 pb-20 md:flex-row md:justify-between md:gap-16">
+        <section className="flex xl:min-h-screen w-full max-w-5xl flex-col items-center justify-center gap-12 md:flex-row md:justify-between md:gap-16">
             <div className="flex max-w-2xl flex-col gap-6 text-center md:text-left">
                 <div>
                     <p className="mb-3 font-mono text-sm text-muted-foreground">
@@ -46,13 +49,22 @@ const HeroSection = () => {
                 </p>
 
                 <div className="flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
-                    <Button>
-                        View projects
-                    </Button>
+                    <Link
+                        href="/contact"
+                    >
+                        <Button size="lg">
+                            Get in touch
+                            <ArrowUpRight />
+                        </Button>
+                    </Link>
 
-                    <Button variant="outline">
-                        Contact me
-                    </Button>
+                    <Link
+                        href="/projects"
+                    >
+                        <Button variant="outline" size="lg">
+                            View projects
+                        </Button>
+                    </Link>
                 </div>
             </div>
 

@@ -1,0 +1,136 @@
+---
+title: "Sitemap Generator"
+description: "A lightweight Python CLI tool that crawls a website and generates search-engine-ready XML sitemaps, automatically splitting output into multiple files of 10,000 URLs each."
+image: "https://opengraph.githubassets.com/a12d5d/NicolasGhiggi/sitemap-generator"
+date: "2026-07-06"
+
+status: "completed"
+
+technologies:
+  - Python
+  - Requests
+  - BeautifulSoup4
+  - XML
+
+github: "https://github.com/NicolasGhiggi/sitemap-generator"
+
+topics:
+  - automation
+  - beautifulsoup4
+  - cli
+  - crawler
+  - python
+  - python3
+  - requests
+  - search-engine-optimization
+  - seo
+  - sitemap
+  - sitemap-generator
+  - web-crawler
+  - website-crawler
+  - xml
+  - xml-sitemap
+---
+
+# Sitemap Generator
+
+## Overview
+
+Sitemap Generator is a lightweight Python CLI tool that crawls a website from a single starting URL, discovers every internal page, and exports the results as XML sitemaps compliant with the Sitemap Protocol.
+
+The goal was to remove the need for third-party sitemap services: give it a URL, and it handles discovery, deduplication, and export on its own — right down to splitting large sites into multiple files, exactly as search engines expect.
+
+![cover](https://opengraph.githubassets.com/a12d5d/NicolasGhiggi/sitemap-generator)
+
+---
+
+## Features
+
+- Crawls an entire website starting from a single URL
+- Discovers internal links automatically, staying within the target domain
+- Generates XML sitemaps compatible with major search engines
+- Splits large sites into multiple sitemap files, 10,000 URLs each
+- Prevents duplicate URLs and infinite crawl loops
+- Saves output to a timestamped folder for easy versioning
+- Produces pretty-formatted, human-readable XML
+- Runs entirely from the command line — no config needed
+
+---
+
+## How It Works
+
+Starting from the URL you provide, the crawler works through the site recursively. For every page it finds, it:
+
+1. Validates the URL and confirms it belongs to the target domain
+2. Checks whether the page has already been processed
+3. Parses the HTML and extracts any new internal links
+4. Queues valid, unseen pages for crawling and adds them to the sitemap
+
+Once crawling completes, all collected URLs are written out as one or more standards-compliant XML sitemap files — automatically split at 10,000 URLs per file.
+
+![Crawler architecture](/images/projects/sitemap-generator/architecture.png)
+
+---
+
+## Usage
+
+Run the script and enter a URL when prompted:
+
+```bash
+py sitemap_generator.py
+```
+
+```
+https://example.com
+```
+
+Sitemaps are written to a timestamped folder inside your Downloads directory:
+
+```
+Downloads/
+└── sitemap_files_dd-mm-yyyy_hh-mm-ss/
+    ├── sitemap_1.xml
+    ├── sitemap_2.xml
+    └── ...
+```
+
+---
+
+## Technologies
+
+**Python 3.12+** — a simple, mature ecosystem for scripting web crawlers and automation tasks.
+
+**Requests** — handles HTTP requests to fetch each page's HTML.
+
+**BeautifulSoup4** — parses HTML and extracts internal links efficiently.
+
+**xml.etree.ElementTree & xml.dom.minidom** — build and pretty-print sitemap XML using Python's standard library, keeping the tool dependency-light.
+
+---
+
+## Challenges
+
+Website structures vary widely, so the crawler had to reliably avoid:
+
+- Infinite loops from circular or self-referencing links
+- Duplicate URLs across differently-formatted paths
+- External links leading outside the target domain
+- Broken or invalid pages that would derail the crawl
+
+---
+
+## Future Improvements
+
+- Async crawling for faster performance on large sites
+- `robots.txt` support to respect crawl directives
+- Sitemap index generation for multi-file sitemaps
+- More robust error handling for edge cases
+- Configuration file support for repeatable, customizable runs
+
+---
+
+## Conclusion
+
+This project was a hands-on exercise in automation, SEO, and web crawling. Building it deepened my understanding of how websites are structured and how to extract and organize data from them reliably.
+
+**[View on GitHub](https://github.com/NicolasGhiggi/sitemap-generator)**

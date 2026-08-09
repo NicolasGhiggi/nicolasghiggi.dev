@@ -1,10 +1,8 @@
 import { Suspense } from "react"
 import { LuGithub } from "react-icons/lu"
-import { Code2, GraduationCap, ShieldCheck } from "lucide-react"
 
-import { AboutCard } from "@/components/card/about-card"
 import { ProfileCard } from "@/components/card/profile-card"
-import { CardContent , Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardContent, Card, CardHeader, CardTitle } from "@/components/ui/card"
 import { GitHubContributions, GitHubContributionsFallback } from "@/components/ui/github-contributions"
 
 import { getCachedContributions } from "@/lib/get-cached-contributions"
@@ -13,7 +11,8 @@ const AboutSection = () => {
     const contributions = getCachedContributions(process.env.GITHUB_USERNAME || "")
 
     return (
-        <section id="about" className="flex flex-col items-center gap-4 p-2">
+        <section className="flex flex-col items-center gap-4">
+            <h2 className="sr-only">About</h2>
             <ProfileCard />
 
             <Card className="w-full max-w-3xl">
@@ -69,27 +68,6 @@ const AboutSection = () => {
                         focusing on clean architecture, attention to detail, and
                         continuous improvement.
                     </p>
-
-
-                    <div className="grid gap-4 pt-4 sm:grid-cols-3">
-                        <AboutCard
-                            icon={Code2}
-                            title="Development"
-                            description="Full Stack"
-                        />
-
-                        <AboutCard
-                            icon={GraduationCap}
-                            title="Education"
-                            description="Computer Engineering"
-                        />
-
-                        <AboutCard
-                            icon={ShieldCheck}
-                            title="Military"
-                            description="Swiss Army Sergeant"
-                        />
-                    </div>
                 </CardContent>
             </Card>
         </section>
