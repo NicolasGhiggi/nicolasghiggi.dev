@@ -4,7 +4,7 @@ import Link from "next/link"
 import { SearchIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { SearchDialog } from "@/components/search-dialog"
+import { SearchDialog } from "@/components/dialog/search-dialog"
 import { ROUTES } from "@/data/app"
 
 const AppTabBar = () => {

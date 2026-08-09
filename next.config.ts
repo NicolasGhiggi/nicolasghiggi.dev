@@ -30,6 +30,14 @@ const nextConfig: NextConfig = {
                 protocol: "https",
                 hostname: "opengraph.githubassets.com",
             },
+            {
+                protocol: "https",
+                hostname: "cleanlife.ch",
+            },
+            {
+                protocol: "https",
+                hostname: "cdn.simpleicons.org",
+            },
         ],
     },
     pageExtensions: ["ts", "tsx", "mdx"],

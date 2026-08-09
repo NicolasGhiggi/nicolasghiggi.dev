@@ -19,8 +19,8 @@ export const metadata: Metadata = {
 
 const Page = () => {
     return (
-        <main className="w-full max-w-6xl mx-auto py-24 px-6">
-            <div className="max-w-2xl flex flex-col gap-3">
+        <main className="w-full max-w-3xl mx-auto py-24 px-6">
+            <div className="w-full flex flex-col gap-3">
                 <p className="font-mono text-sm text-muted-foreground">
                     Skills
                 </p>
@@ -47,7 +47,7 @@ const Page = () => {
                         >
                             <CardHeader>
                                 <div className="flex items-center gap-3">
-                                    <div className="flex size-10 items-center justify-center rounded-lg border">
+                                    <div className="flex size-10 items-center justify-center rounded-lg border bg-muted text-muted-foreground">
                                         <Icon className="size-5" />
                                     </div>
 
@@ -112,7 +112,7 @@ const Page = () => {
 
 
                 <div className="mt-8 grid gap-4 md:grid-cols-3">
-                    {SKILLS.stacks.map((group, idx) => (
+                    {SKILLS.stack.map((group, idx) => (
                         <Card key={idx}>
                             <CardHeader>
                                 <CardTitle className="flex items-center gap-3 text-base">
@@ -160,7 +160,7 @@ const Page = () => {
                         return (
                             <Card key={item.title}>
                                 <CardHeader>
-                                    <div className="flex size-11 items-center justify-center rounded-xl border">
+                                    <div className="flex size-10 items-center justify-center rounded-lg border bg-muted text-muted-foreground">
                                         <Icon className="size-5" />
                                     </div>
 

@@ -1,7 +1,6 @@
-import type { Metadata } from 'next';
-import Link from "next/link"
+import type { Metadata } from 'next'
 import { H1 } from "@/components/ui/heading"
-import { ProjectCard } from "@/components/card/project-card"
+import { ProjectsExplorer } from "@/components/explorer/projects-explorer"
 
 import PROJECTS from "@/data/projects"
 import { USER } from "@/data/app"
@@ -26,8 +25,8 @@ export const metadata: Metadata = {
 
 const Page = () => {
     return (
-        <main className="w-full max-w-6xl mx-auto py-24 px-6">
-            <div className="max-w-6xl flex flex-col gap-3">
+        <main className="w-full max-w-3xl mx-auto py-24 flex flex-col gap-6">
+            <header className="w-full flex flex-col gap-3">
                 <p className="font-mono text-sm text-muted-foreground">
                     Projects
                 </p>
@@ -39,18 +38,8 @@ const Page = () => {
                 <p className="mt-1 text-muted-foreground">
                     Explore my software development projects, including web applications, scripts, and open-source projects built with modern technologies.
                 </p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 py-6">
-                {PROJECTS.map((project) => (
-                    <Link
-                        href={`/projects/${project.slug}`}
-                        key={project.slug}
-                        className="h-full"
-                    >
-                        <ProjectCard project={project} />
-                    </Link>
-                ))}
-            </div>
+            </header>
+            <ProjectsExplorer projects={PROJECTS} />
         </main>
     )
 }

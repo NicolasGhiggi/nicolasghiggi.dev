@@ -46,7 +46,7 @@ const Page = () => {
     }
 
     return (
-        <main className="w-full max-w-2xl flex flex-col items-center py-24 px-6 gap-10">
+        <main className="w-full max-w-3xl flex flex-col items-center py-24 px-4 gap-10">
             <section className="text-center space-y-4">
 
                 <Badge variant="outline" className="text-sm h-7 p-1 pr-2">

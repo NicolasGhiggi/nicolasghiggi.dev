@@ -54,7 +54,7 @@ const SearchDialog: FC<SearchDialogProps> = ({ children }) => {
 
     return (
         <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger render={(props) => children} />
+            <DialogTrigger render={children} />
             <DialogContent showCloseButton={false}>
                 <DialogHeader>
                     <InputGroup>

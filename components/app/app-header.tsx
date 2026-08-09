@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { GitHubStars } from "@/components/ui/github-stars"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
-import { SearchDialog } from "@/components/search-dialog"
+import { SearchDialog } from "@/components/dialog/search-dialog"
 import { NavigationMenu , NavigationMenuList, NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 import { SOURCE_CODE_GITHUB_REPO, USER, ROUTES } from "@/data/app"
@@ -20,7 +20,7 @@ const AppHeader = async () => {
 
     return (
         <header className="fixed z-40 top-0 w-full p-2 flex items-center justify-center">
-            <nav className="grid place-items-center w-full max-w-5xl p-4 rounded-xl bg-background/80 backdrop-blur-md border shadow-md">
+            <nav className="grid place-items-center w-full max-w-3xl px-4 py-2.25 rounded-xl bg-background/80 backdrop-blur-md border shadow-md">
                 <div className="w-full flex items-center justify-between">
                     <section className="flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-2">
@@ -32,7 +32,7 @@ const AppHeader = async () => {
                     <section className="flex items-center justify-end gap-2">
                         <div className="flex items-center">
                             <NavigationMenu className="hidden md:flex">
-                                <NavigationMenuList>
+                                <NavigationMenuList className="gap-0.5">
                                     {ROUTES.map((item, idx) => (
                                         <NavigationMenuItem key={idx}>
                                             <NavigationMenuLink className={navigationMenuTriggerStyle()} render={
@@ -45,20 +45,20 @@ const AppHeader = async () => {
                                 </NavigationMenuList>
                             </NavigationMenu>
                         </div>
-                        <Separator orientation="vertical" className="hidden lg:flex" />
+                        <Separator orientation="vertical" className="hidden lg:flex h-5 my-auto" />
                         <SearchDialog>
-                            <Button variant="outline" className="hidden lg:inline-flex">
+                            <Button variant="ghost" className="hidden lg:inline-flex">
                                 <SearchIcon />
                                 <Kbd className="hidden lg:inline-flex">Ctrl</Kbd>
                                 <Kbd className="hidden lg:inline-flex">K</Kbd>
                             </Button>
                         </SearchDialog>
-                        <Separator orientation="vertical" className="hidden lg:flex" />
+                        <Separator orientation="vertical" className="hidden lg:flex h-5 my-auto" />
                         <GitHubStars
                             repo={SOURCE_CODE_GITHUB_REPO}
                             stargazersCount={stargazersCount}
                         />
-                        <Separator orientation="vertical" />
+                        <Separator orientation="vertical" className="h-5 my-auto" />
                         <ThemeToggle />
                     </section>
                 </div>

@@ -3,7 +3,6 @@ import type { Metadata } from 'next'
 import { notFound } from "next/navigation"
 
 import PROJECTS from "@/data/projects"
-import projectContent from "@/content/projects"
 
 type Props = {
     params: Promise<{ slug: string }>
@@ -11,7 +10,7 @@ type Props = {
 
 export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
     const { slug } = await params
-    const project = PROJECTS.find(project => project.slug === slug)
+    const project = PROJECTS.find(p => p.slug === slug)
 
     if (!project) {
         return { title: "Project not found" }
@@ -36,19 +35,17 @@ export const dynamicParams = false
 
 const Page: FC<Props> = async ({ params }) => {
     const { slug } = await params
-    const loader = projectContent[slug]
+    const project = PROJECTS.find(p => p.slug === slug)
 
-    if (!loader) {
+    if (!project) {
         notFound()
     }
 
-    const { default: Project } = await loader()
+    const { default: Project } = await import(`@/content/projects/${project.slug}.mdx`)
 
     return (
-        <main className="w-full max-w-3xl mx-auto py-24 px-6">
-            <div className="typeset typeset-project">
-                <Project />
-            </div>
+        <main className="w-full max-w-3xl mx-auto py-24 typeset typeset-project">
+            <Project />
         </main>
     )
 }

@@ -15,6 +15,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { ThemeProvider, ThemeHotkey } from "@/providers/theme-provider"
 
 import { USER } from "@/data/app"
+import { OpenPanelComponent } from "@openpanel/nextjs"
 
 const fontHeading = Space_Grotesk({
     subsets: ['latin'],
@@ -99,6 +100,10 @@ const RootLayout: FC<RootLayoutProps> = async ({ children, params }) => {
                             <Toaster />
                             <Analytics />
                             <SpeedInsights />
+                            <OpenPanelComponent
+                                clientId={process.env.CLIENT_ID || ""}
+                                trackScreenViews={true}
+                            />
                         </TooltipProvider>
                     </ThemeProvider>
                 {/*</NextIntlClientProvider>*/}

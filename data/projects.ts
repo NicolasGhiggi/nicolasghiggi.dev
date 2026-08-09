@@ -17,12 +17,19 @@ const PROJECTS: Projects = [
         featured: true,
     },
     {
-        name: "Personal Portfolio",
-        slug: "personal-portfolio",
-        description: "My personal portfolio, now you are in that portfolio.",
-        image: "https://opengraph.githubassets.com/a12d5d/NicolasGhiggi/nicolasghiggi.dev",
-        technologies: ["NextJS", "Typescript"],
-        createdAt: new Date("2026-08-04"),
+        name: "Cleanlife GmbH Websites",
+        slug: "cleanlife-gmbh-websites",
+        description: "Redesigned and developed two websites for Cleanlife GmbH: a public-facing company website and a dedicated customer portal.",
+        image: "/images/projects/cleanlife-gmbh-websites/cover.png",
+        technologies: [
+            "Laravel",
+            "Livewire",
+            "MySQL",
+            "JavaScript",
+        ],
+        createdAt: new Date("2026-08-08"),
+        link: "https://cleanlife.ch/",
+        featured: true, 
     }
 ]
 

@@ -13,7 +13,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: FC<ProjectCardProps> = ({ project }) => (
-    <Card>
+    <Card className="h-full hover:bg-muted transition-colors">
         <CardHeader>
             <Image
                 src={project.image}
