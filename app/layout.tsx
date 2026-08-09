@@ -66,7 +66,6 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
 
     return (
         <html
-            lang={locale}
             suppressHydrationWarning
             className={cn(
                 fontSans.variable,
