@@ -71,7 +71,7 @@ interface RootLayoutProps {
     }>
 }
 
-const RootLayout: FC<RootLayoutProps> = async ({ children, params }) => {
+const RootLayout = async ({ children, params }: RootLayoutProps) => {
     const { locale } = await params;
     // const messages = await getMessages();
 
