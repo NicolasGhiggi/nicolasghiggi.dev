@@ -88,7 +88,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
                         <Analytics />
                         <SpeedInsights />
                         <OpenPanelComponent
-                            clientId={process.env.CLIENT_ID || ""}
+                            clientId={process.env.NEXT_PUBLIC_CLIENT_ID || ""}
                             trackScreenViews={true}
                         />
                     </TooltipProvider>
