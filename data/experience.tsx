@@ -1,5 +1,5 @@
 import { CodeXmlIcon } from "lucide-react"
-import type { ExperienceItemType } from "@/components/work-experience"
+import type { ExperienceItemType } from "@/components/ui/work-experience"
 
 const EXPERIENCE: ExperienceItemType[] = [
     {

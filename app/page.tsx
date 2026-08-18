@@ -4,6 +4,8 @@ import { AboutSection } from "@/components/section/about-section"
 import { StackSection } from "@/components/section/stack-section"
 import { ExperiencesSection } from "@/components/section/experience-section"
 import { FeaturedProjectsSection } from "@/components/section/featured-projects-section"
+import { CertificationsSection } from "@/components/section/certifications-section"
+import { InsightsSection } from "@/components/section/insights-section"
 import { CtaSection } from "@/components/section/cta-section"
 import { Divider } from "@/components/ui/divider"
 
@@ -33,6 +35,12 @@ const Page = () => {
 
             <Divider number="05" label="Experience" className="mt-10" />
             <ExperiencesSection />
+
+            <Divider number="06" label="Certifications" className="mt-10" />
+            <CertificationsSection />
+
+            <Divider number="07" label="Insights" className="mt-10" />
+            <InsightsSection />
 
             <Divider className="my-10" />
             <CtaSection />

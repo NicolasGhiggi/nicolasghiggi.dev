@@ -11,8 +11,8 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { Separator } from "@/components/ui/separator"
-import type { ChevronsUpDownIconHandle } from "@/components/chevrons-up-down-icon"
-import { ChevronsUpDownIcon } from "@/components/chevrons-up-down-icon"
+import type { ChevronsUpDownIconHandle } from "@/components/icons/chevrons-up-down-icon"
+import { ChevronsUpDownIcon } from "@/components/icons/chevrons-up-down-icon"
 import { BriefcaseBusinessIcon, InfinityIcon } from "lucide-react"
 
 export type ExperiencePositionItemType = {
@@ -160,7 +160,8 @@ export function ExperiencePositionItem({
   const duration = formatDuration(start, end)
 
   return (
-    <Collapsible defaultOpen={position.isExpanded} onOpenChange={handleOpenChange} disabled={!position.description} render={<div className="relative last:before:absolute last:before:h-full last:before:w-4 last:before:bg-background" />}><CollapsibleTrigger
+    <Collapsible defaultOpen={position.isExpanded} onOpenChange={handleOpenChange} disabled={!position.description} render={<div className="relative last:before:absolute last:before:h-full last:before:w-4 last:before:bg-trasparent" />}>
+        <CollapsibleTrigger
                 className={cn(
                   "group/experience-position not-prose block w-full text-left select-none",
                   "relative before:absolute before:-top-1 before:-right-1 before:-bottom-1.5 before:left-7 before:rounded-lg hover:before:bg-muted/30",
@@ -232,21 +233,26 @@ export function ExperiencePositionItem({
                     </>
                   )}
                 </dl>
-              </CollapsibleTrigger><CollapsibleContent className="overflow-hidden">
+
+        </CollapsibleTrigger>
+        <CollapsibleContent className="overflow-hidden">
                 {position.description && (
                   <Prose className="pt-2 pl-9">
                     <ReactMarkdown>{position.description}</ReactMarkdown>
                   </Prose>
                 )}
-              </CollapsibleContent>{Array.isArray(position.skills) && position.skills.length > 0 && (
-                <ul className="not-prose flex flex-wrap gap-1.5 pt-3 pl-9">
-                  {position.skills.map((skill, index) => (
-                    <li key={index} className="flex">
-                      <Skill>{skill}</Skill>
-                    </li>
-                  ))}
-                </ul>
-              )}</Collapsible>
+
+        </CollapsibleContent>
+        {Array.isArray(position.skills) && position.skills.length > 0 && (
+          <ul className="not-prose flex flex-wrap gap-1.5 pt-3 pl-9">
+            {position.skills.map((skill, index) => (
+              <li key={index} className="flex">
+                <Skill>{skill}</Skill>
+              </li>
+            ))}
+          </ul>
+        )}
+    </Collapsible>
   )
 }
 

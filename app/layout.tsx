@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { type FC, type ReactNode } from "react"
+import { type ReactNode } from "react"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { JetBrains_Mono, Outfit, Space_Grotesk } from "next/font/google"
@@ -63,7 +63,6 @@ export const metadata: Metadata = {
 }
 
 const RootLayout = async ({ children }: { children: ReactNode }) => {
-
     return (
         <html
             suppressHydrationWarning

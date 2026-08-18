@@ -47,7 +47,7 @@ const AppHeader = async () => {
                         </div>
                         <Separator orientation="vertical" className="hidden lg:flex h-5 my-auto" />
                         <SearchDialog>
-                            <Button variant="ghost" className="hidden lg:inline-flex">
+                            <Button variant="ghost" className="hidden lg:inline-flex" data-slot="dialog-trigger">
                                 <SearchIcon />
                                 <Kbd className="hidden lg:inline-flex">Ctrl</Kbd>
                                 <Kbd className="hidden lg:inline-flex">K</Kbd>

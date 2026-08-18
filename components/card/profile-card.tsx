@@ -30,6 +30,7 @@ import {
 
 import { USER } from "@/data/app"
 import { getTimezoneInfo } from "@/lib/timezone"
+import { IconContainer } from "@/components/ui/icon-container"
 
 
 const ProfileCard = () => {
@@ -135,9 +136,7 @@ interface InfoItemProps {
 const InfoItem: FC<InfoItemProps> = ({ icon: Icon, text, path, copy = false }) => {
     return (
         <div className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-lg border border-muted-foreground/15 ring-1 ring-muted ring-offset-1 ring-offset-background bg-muted text-muted-foreground">
-                <Icon className="size-5"/>
-            </div>
+            <IconContainer icon={Icon} />
             <div className="group flex items-center gap-1 min-w-0">
                 {path ? (
                     <Link

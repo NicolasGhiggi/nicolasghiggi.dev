@@ -11,7 +11,7 @@ const AboutSection = () => {
     const contributions = getCachedContributions(process.env.GITHUB_USERNAME || "")
 
     return (
-        <section className="flex flex-col items-center gap-4">
+        <section className="w-full max-w-3xl flex flex-col items-center gap-4">
             <h2 className="sr-only">About</h2>
             <ProfileCard />
 

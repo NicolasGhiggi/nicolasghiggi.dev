@@ -12,7 +12,7 @@ const Divider = ({ number, label, className }: DividerProps) => {
     return (
         <div
             className={cn(
-                "mx-auto flex max-w-3xl items-center gap-4 text-sm text-muted-foreground",
+                "mx-auto flex w-full max-w-3xl items-center gap-4 text-sm text-muted-foreground",
                 className,
             )}
         >

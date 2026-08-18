@@ -22,6 +22,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => (
                 aspect="aspect-2/1"
                 rounded="rounded-lg"
                 fill
+                sizes="100%"
             />
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
