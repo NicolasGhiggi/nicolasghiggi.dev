@@ -1,0 +1,100 @@
+# Building nicolasghiggi.dev — a developer portfolio from scratch
+
+**Published:** August 19, 2026
+
+---
+
+A portfolio should be more than a collection of projects.
+
+For me, **nicolasghiggi.dev** is also a place to experiment, learn, and document how I build things as a Computer Engineering student.
+
+I wanted to create something that feels simple and personal while still reflecting the way I approach development: clean interfaces, modern technologies, good performance, and attention to detail.
+
+## The idea
+
+The goal was to build a portfolio that doesn't get in the way of the content.
+
+Instead of filling the interface with unnecessary animations or complex layouts, I focused on typography, spacing, subtle interactions, and a clear structure.
+
+The portfolio is built around a few main sections:
+
+* **Projects** — things I've built and worked on.
+* **Skills** — technologies and tools I use.
+* **Experience** — my professional and educational journey.
+* **Blog** — a place to share what I learn.
+* **Contact** — an easy way to get in touch.
+
+## The stack
+
+The website is built with a modern React-based stack.
+
+### Next.js
+
+The application uses **Next.js 16** as its foundation.
+
+I chose Next.js because it gives me a solid architecture for building a fast website while providing features such as server rendering, routing, metadata management, and optimized images out of the box.
+
+### Tailwind CSS
+
+For styling, I'm using **Tailwind CSS v4**.
+
+It allows me to keep the styling close to the components while maintaining a consistent design system throughout the website.
+
+### shadcn/ui
+
+The UI is built on top of **shadcn/ui**.
+
+Rather than relying on a large component library, I can use accessible components while keeping control over their implementation and appearance.
+
+## Content as code
+
+One of the things I wanted to avoid was having the content of the website tightly coupled to the UI.
+
+The blog and documentation use **MDX**, which allows me to write content using Markdown while still being able to include React components when necessary.
+
+This gives me a centralized content layer for:
+
+* Blog posts
+* Component documentation
+* Code examples
+* Categories and metadata
+* Dynamic Open Graph images
+* RSS feeds
+
+I also expose raw `.mdx` content so that the information can be easily consumed by other tools and AI systems.
+
+## SEO and accessibility
+
+A portfolio is useless if nobody can find it.
+
+The website therefore includes structured metadata and several features designed to make the content easier to discover and understand:
+
+* JSON-LD structured data
+* Sitemap
+* `robots.txt`
+* Dynamic metadata
+* Open Graph images
+* RSS
+* `/llms.txt`
+
+I also try to keep accessibility in mind when building components, especially when working with interactive UI elements.
+
+## More than a portfolio
+
+The most important part of this project isn't necessarily the final design.
+
+It's the process behind it.
+
+I'm using this website as a way to experiment with new technologies, improve my development workflow, and document what I learn along the way.
+
+As I continue studying Computer Engineering and working on new projects, I expect this portfolio to evolve with me.
+
+There will probably be things I change, rebuild, and eventually decide were terrible ideas.
+
+And that's exactly the point.
+
+**This website isn't finished. It's a project that grows with me.**
+
+---
+
+You can find the source code on [GitHub](https://github.com/NicolasGhiggi/nicolasghiggi-dev) and explore the rest of the portfolio at [nicolasghiggi.dev](https://nicolasghiggi.dev).

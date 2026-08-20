@@ -2,12 +2,11 @@ import Link from "next/link"
 import { ArrowRightIcon } from "lucide-react"
 import { H2 } from "@/components/ui/heading"
 import { Button } from "@/components/ui/button"
-import { ProjectCard } from "@/components/card/project-card"
+import { ProjectCard } from "@/components/projects/project-card"
 
 import PROJECTS from "@/data/projects"
 
 const FeaturedProjectsSection = () => {
-
     const projects = PROJECTS.filter(p => p.featured)
 
     return (

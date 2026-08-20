@@ -3,8 +3,6 @@ export type Post = {
     title: string;
     image?: string;
     date: Date;
-    readingTime?: string;
-    tags: string[];
 }
 
 export type Posts = Post[]

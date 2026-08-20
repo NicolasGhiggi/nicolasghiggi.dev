@@ -4,6 +4,7 @@ import { AboutSection } from "@/components/section/about-section"
 import { StackSection } from "@/components/section/stack-section"
 import { ExperiencesSection } from "@/components/section/experience-section"
 import { FeaturedProjectsSection } from "@/components/section/featured-projects-section"
+import { LastPostsSection } from "@/components/section/last-posts-section"
 import { CertificationsSection } from "@/components/section/certifications-section"
 import { InsightsSection } from "@/components/section/insights-section"
 import { CtaSection } from "@/components/section/cta-section"
@@ -28,7 +29,7 @@ const Page = () => {
             <FeaturedProjectsSection />
 
             <Divider number="03" label="Blog" className="mt-10" />
-            <FeaturedProjectsSection />
+            <LastPostsSection />
 
             <Divider number="04" label="Stack" className="mt-10" />
             <StackSection />

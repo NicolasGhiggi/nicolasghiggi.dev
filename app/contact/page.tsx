@@ -8,6 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { Controller, useForm } from "react-hook-form"
 import { MailIcon, MapPinIcon, RotateCcwIcon, SendHorizonalIcon, UserIcon } from "lucide-react"
 
+import { H1 } from "@/components/ui/heading"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Map, MapControls } from "@/components/ui/map"
@@ -47,8 +48,7 @@ const Page = () => {
 
     return (
         <main className="w-full max-w-3xl flex flex-col items-center py-24 px-4 gap-10">
-            <section className="text-center space-y-4">
-
+            <div className="w-full space-y-4">
                 <Badge variant="outline" className="text-sm h-7 p-1 pr-2">
                     <span className="relative flex size-5 items-center justify-center">
                         <span className="absolute z-10 top-1/2 left-1/2 size-3 rounded-full bg-emerald-500 animate-radar-pulse transform -translate-1/2"/>
@@ -56,15 +56,15 @@ const Page = () => {
                     </span>
                     Available for new projects
                 </Badge>
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tight">
+                <H1>
                     Let's work together
-                </h1>
-                <p className="text-muted-foreground max-w-xl">
+                </H1>
+                <p className="mt-1 text-muted-foreground">
                     Have an idea, a project, or just want to say hello?
                     Feel free to send me a message.
                 </p>
-            </section>
-            <Card className="w-full">
+            </div>
+            <Card className="w-full max-w-3xl">
                 <CardHeader>
                     <CardTitle>Contact me</CardTitle>
                     <CardDescription>

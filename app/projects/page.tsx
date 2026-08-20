@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { H1 } from "@/components/ui/heading"
-import { ProjectsExplorer } from "@/components/explorer/projects-explorer"
+import { ProjectsExplorer } from "@/components/projects/projects-explorer"
 
 import PROJECTS from "@/data/projects"
 import { USER } from "@/data/app"
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
     return (
-        <main className="w-full max-w-3xl mx-auto py-24 flex flex-col gap-6">
+        <main className="w-full max-w-3xl mx-auto px-4 py-24 flex flex-col gap-6">
             <header className="w-full flex flex-col gap-3">
                 <p className="font-mono text-sm text-muted-foreground">
                     Projects

@@ -18,9 +18,9 @@ const StackSection = () => {
                             {SKILLS.stack.map((stack, index) => (
                                 <TableRow
                                     key={stack.name}
-                                    className="hover:bg-transparent"
+                                    className="block hover:bg-transparent md:table-row"
                                 >
-                                    <TableCell className="w-40 font-heading align-top">
+                                    <TableCell className="block w-full font-heading align-top md:table-cell md:w-40">
                                         <div className="flex gap-3 py-2">
                                             <span className="font-mono text-sm text-muted-foreground">
                                                 {String(index + 1).padStart(2, "0")}
@@ -32,7 +32,7 @@ const StackSection = () => {
                                         </div>
                                     </TableCell>
 
-                                    <TableCell>
+                                    <TableCell className="block w-full md:table-cell">
                                         <div className="flex flex-wrap gap-2">
                                             {stack.items.map((item) => (
                                                 <Badge
@@ -44,7 +44,6 @@ const StackSection = () => {
                                                         size={14}
                                                         aria-hidden="true"
                                                     />
-
                                                     {item.name}
                                                 </Badge>
                                             ))}

@@ -13,7 +13,7 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: FC<ProjectCardProps> = ({ project }) => (
-    <Card className="h-full hover:bg-muted transition-colors">
+    <Card className="group h-full hover:bg-muted transition-colors">
         <CardHeader>
             <Image
                 src={project.image}
@@ -23,9 +23,10 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => (
                 rounded="rounded-lg"
                 fill
                 sizes="100%"
+                loading="eager"
             />
         </CardHeader>
-        <CardContent className="flex flex-col gap-2">
+        <CardContent className="flex flex-col gap-4">
             <H5 className="line-clamp-1">
                 {project.name}
             </H5>

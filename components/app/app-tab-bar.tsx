@@ -4,14 +4,14 @@ import Link from "next/link"
 import { SearchIcon } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { SearchDialog } from "@/components/dialog/search-dialog"
+import { SearchDialog } from "@/components/search/search-dialog"
 import { ROUTES } from "@/data/app"
 
 const AppTabBar = () => {
     const pathname = usePathname()
 
     return (
-        <div className="sticky md:hidden z-40 bottom-0 left-0 w-full p-3 flex justify-center">
+        <div className="sticky lg:hidden z-40 bottom-0 left-0 w-full p-3 flex justify-center">
             <nav className="flex items-center gap-1 rounded-full bg-background/80 backdrop-blur-md border shadow-lg p-2">
                 {ROUTES.map((route) => {
                     const active = pathname === route.path

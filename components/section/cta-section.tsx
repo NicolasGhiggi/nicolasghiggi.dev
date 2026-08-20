@@ -54,11 +54,6 @@ const CtaSection = () => {
                             </Link>
                         </div>
                     </div>
-
-                    <div
-                        aria-hidden="true"
-                        className="absolute -bottom-32 -right-32 size-80 rounded-full bg-primary/5 blur-3xl"
-                    />
                 </CardContent>
             </Card>
         </section>

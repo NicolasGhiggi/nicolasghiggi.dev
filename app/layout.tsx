@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import { type ReactNode } from "react"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-import { JetBrains_Mono, Outfit, Space_Grotesk } from "next/font/google"
+import { JetBrains_Mono, Outfit, Pixelify_Sans, Space_Grotesk } from "next/font/google"
 
 import "@/styles/globals.css"
 import { cn } from "@/lib/utils"
@@ -15,19 +15,24 @@ import { ThemeProvider, ThemeHotkey } from "@/providers/theme-provider"
 import { USER } from "@/data/app"
 import { OpenPanelComponent } from "@openpanel/nextjs"
 
-const fontHeading = Space_Grotesk({
+const spaceGrotesk = Space_Grotesk({
     subsets: ['latin'],
-    variable: '--font-heading',
+    variable: '--font-heading'
 });
 
-const fontSans = Outfit({
+const outfit = Outfit({
     subsets: ['latin'],
-    variable: '--font-sans',
+    variable: '--font-sans'
 })
 
-const fontMono = JetBrains_Mono({
+const jetBrainsMono = JetBrains_Mono({
     subsets: ["latin"],
     variable: "--font-mono",
+})
+
+const pixel = Pixelify_Sans({
+    subsets: ["latin"],
+    variable: "--font-pixel",
 })
 
 export const metadata: Metadata = {
@@ -66,11 +71,7 @@ const RootLayout = async ({ children }: { children: ReactNode }) => {
     return (
         <html
             suppressHydrationWarning
-            className={cn(
-                fontSans.variable,
-                fontHeading.variable,
-                fontMono.variable
-            )}
+            className={cn(jetBrainsMono.variable, outfit.variable, spaceGrotesk.variable, pixel.variable)}
             data-scroll-behavior="smooth"
         >
             <body>

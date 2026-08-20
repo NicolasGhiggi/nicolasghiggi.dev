@@ -1,14 +1,12 @@
 import Link from "next/link"
 import { SearchIcon } from "lucide-react"
-// import { getTranslations } from "next-intl/server"
 
 import { Kbd } from "@/components/ui/kbd"
-import { H5 } from "@/components/ui/heading"
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { GitHubStars } from "@/components/ui/github-stars"
 import { ThemeToggle } from "@/components/ui/theme-toggle"
-import { SearchDialog } from "@/components/dialog/search-dialog"
+import { SearchDialog } from "@/components/search/search-dialog"
 import { NavigationMenu , NavigationMenuList, NavigationMenuItem, NavigationMenuLink, navigationMenuTriggerStyle } from "@/components/ui/navigation-menu";
 
 import { SOURCE_CODE_GITHUB_REPO, USER, ROUTES } from "@/data/app"
@@ -16,7 +14,6 @@ import { getStargazerCount } from "@/lib/github"
 
 const AppHeader = async () => {
     const stargazersCount = await getStargazerCount()
-    // const t = await getTranslations("navigation")
 
     return (
         <header className="fixed z-40 top-0 w-full p-2 flex items-center justify-center">
@@ -24,14 +21,14 @@ const AppHeader = async () => {
                 <div className="w-full flex items-center justify-between">
                     <section className="flex items-center justify-between">
                         <Link href="/" className="flex items-center gap-2">
-                            <H5 className="text-md! lg:text-lg!">
-                                {USER.name}
-                            </H5>
+                            <h2 className="font-pixel">
+                                {USER.name?.split(" ").map(w => w[0].toUpperCase()).join("")}
+                            </h2>
                         </Link>
                     </section>
                     <section className="flex items-center justify-end gap-2">
                         <div className="flex items-center">
-                            <NavigationMenu className="hidden md:flex">
+                            <NavigationMenu className="hidden lg:flex">
                                 <NavigationMenuList className="gap-0.5">
                                     {ROUTES.map((item, idx) => (
                                         <NavigationMenuItem key={idx}>

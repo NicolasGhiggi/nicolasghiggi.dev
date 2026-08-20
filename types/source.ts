@@ -1,10 +1,10 @@
 import { LucideIcon } from "lucide-react"
+import { IconType } from "react-icons"
 
 export type Source = {
     slug: string
     label: string
-    section: string
     secondaryLabel?: string
-    icon: LucideIcon
+    icon: LucideIcon|IconType
     action: () => void
 }

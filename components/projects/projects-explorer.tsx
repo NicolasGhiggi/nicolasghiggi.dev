@@ -4,7 +4,7 @@ import Link from "next/link"
 import { SearchIcon } from "lucide-react"
 import { useMemo, useState } from "react"
 import { Button } from "@/components/ui/button"
-import { ProjectCard } from "@/components/card/project-card"
+import { ProjectCard } from "@/components/projects/project-card"
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group"
 
 import { cn } from "@/lib/utils"
@@ -90,7 +90,7 @@ const ProjectsExplorer = ({ projects }: ProjectsExplorerProps) => {
                                     "rounded-full border px-3 py-1 text-xs font-mono transition-colors",
                                     isActive
                                         ? "border-primary bg-primary text-primary-foreground"
-                                        : "border-border text-muted-foreground hover:border-primary hover:text-primary-foreground"
+                                        : "border-border text-muted-foreground hover:border-primary hover:text-foreground"
                                 )}
                             >
                                 {tech}

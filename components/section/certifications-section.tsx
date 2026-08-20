@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Table,
     TableBody,
@@ -11,6 +13,8 @@ import { format } from "date-fns"
 import { ArrowUpRight } from "lucide-react"
 
 const CertificationsSection = () => {
+    const navigate = (url: string) => window.open(url, '_blank', 'noopener,noreferrer')
+
     return (
         <section className="w-full max-w-3xl">
             <h2 className="sr-only">Certifications</h2>
@@ -23,6 +27,7 @@ const CertificationsSection = () => {
                                 <TableRow
                                     key={idx}
                                     className="group border-b last:border-b-0 cursor-pointer"
+                                    onClick={() => navigate(certification.link)}
                                 >
                                     {/* Icon */}
                                     <TableCell className="w-16 py-5 pl-5 pr-2">
@@ -36,11 +41,11 @@ const CertificationsSection = () => {
                                     {/* Content */}
                                     <TableCell className="py-5 px-3">
                                         <div className="flex flex-col gap-1">
-                                            <p className="font-medium leading-snug">
+                                            <p className="text-xs md:text-md font-medium leading-snug">
                                                 {certification.name}
                                             </p>
 
-                                            <div className="flex flex-wrap items-center gap-x-2 text-sm text-muted-foreground">
+                                            <div className="flex flex-wrap items-center gap-x-2 text-xs md:text-sm text-muted-foreground">
                                                 <span>
                                                     {certification.issuer}
                                                 </span>
