@@ -302,7 +302,7 @@ const PostHeader = ({
                         {previous && (
                             <Link
                                 href={`/blog/${previous.slug}`}
-                                aria-label={`Previous post: ${previous.name}`}
+                                aria-label={`Previous post: ${previous.title}`}
                             >
                                 <Button
                                     variant="secondary"
@@ -315,7 +315,7 @@ const PostHeader = ({
                         )}
 
                         {next && (
-                            <Link href={`/blog/${next.slug}`} aria-label={`Next post: ${next.name}`}>
+                            <Link href={`/blog/${next.slug}`} aria-label={`Next post: ${next.title}`}>
                                 <Button
                                     variant="secondary"
                                     size="icon-sm"
