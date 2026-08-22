@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 
 const Page = () => {
     return (
-        <main className="w-full max-w-5xl py-24 px-4 flex flex-col items-center gap-10">
+        <main className="w-full max-w-5xl pb-24 px-4 flex flex-col items-center gap-10">
             <HeroSection />
 
             <Divider number="01" label="About" className="mt-10" />

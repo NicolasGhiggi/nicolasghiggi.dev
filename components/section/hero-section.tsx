@@ -22,7 +22,7 @@ const HeroSection = () => {
     }, [])
 
     return (
-        <section className="flex xl:min-h-screen w-full max-w-5xl flex-col items-center justify-center gap-12 md:flex-row md:justify-between md:gap-16">
+        <section className="flex xl:min-h-screen w-full max-w-5xl pt-24 flex-col items-center justify-center gap-12 md:flex-row md:justify-between md:gap-16">
             <div className="flex max-w-2xl flex-col gap-6 text-center md:text-left">
                 <div>
                     <p className="mb-3 font-mono text-sm text-muted-foreground">
