@@ -17,7 +17,7 @@ export const slugify = (str: string) =>
  * Formats a duration given in seconds into a compact `Xh Ym Zs` string.
  * Zero-valued units are omitted; a zero duration renders as `0s`.
  */
-export function formatDuration(seconds: number): string {
+export const formatDuration = (seconds: number) => {
     const totalSeconds = Math.round(seconds)
     const hours = Math.floor(totalSeconds / 3600)
     const minutes = Math.floor((totalSeconds % 3600) / 60)
