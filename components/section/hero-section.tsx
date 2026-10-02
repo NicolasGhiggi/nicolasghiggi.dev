@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { FlipSentences } from "@/components/ui/flip-sentences"
 
 import { USER } from "@/data/app"
-// import { Link } from "@/i18n/navigation"
 import { getGreeting } from "@/lib/get-greeting"
 import ProfileImage from "@/public/images/profile.png"
 import { ArrowUpRight } from "lucide-react"

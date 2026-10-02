@@ -1,29 +1,30 @@
 {
-  "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "base-luma",
-  "rsc": true,
-  "tsx": true,
-  "tailwind": {
-    "config": "",
-    "css": "styles/globals.css",
-    "baseColor": "neutral",
-    "cssVariables": true,
-    "prefix": ""
-  },
-  "iconLibrary": "lucide",
-  "rtl": false,
-  "menuColor": "default-translucent",
-  "menuAccent": "subtle",
-  "aliases": {
-    "components": "@/components",
-    "utils": "@/lib/utils",
-    "ui": "@/components/ui",
-    "lib": "@/lib",
-    "hooks": "@/hooks"
-  },
-  "registries": {
-    "@ncdai": "https://chanhdai.com/r/{name}.json",
-    "@soundcn": "https://soundcn.xyz/r/{name}.json",
-    "@mapcn": "https://mapcn.dev/r/{name}.json"
-  }
+    "$schema": "https://ui.shadcn.com/schema.json",
+    "style": "base-luma",
+    "rsc": true,
+    "tsx": true,
+    "tailwind": {
+        "config": "",
+        "css": "styles/globals.css",
+        "baseColor": "neutral",
+        "cssVariables": true,
+        "prefix": ""
+    },
+    "iconLibrary": "lucide",
+    "rtl": false,
+    "menuColor": "default-translucent",
+    "menuAccent": "subtle",
+    "aliases": {
+        "components": "@/components",
+        "utils": "@/lib/utils",
+        "ui": "@/components/ui",
+        "lib": "@/lib",
+        "hooks": "@/hooks"
+    },
+    "registries": {
+        "@bklit": "https://ui.bklit.com/r/{name}.json",
+        "@ncdai": "https://chanhdai.com/r/{name}.json",
+        "@soundcn": "https://soundcn.xyz/r/{name}.json",
+        "@mapcn": "https://mapcn.dev/r/{name}.json"
+    }
 }

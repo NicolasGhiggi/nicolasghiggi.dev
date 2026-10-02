@@ -1,268 +1,406 @@
-"use client"
+"use client";
 
-import { useCallback, useEffect, useId, useMemo, useRef, useState } from "react"
-import { curveNatural } from "@visx/curve"
-import { LinePath } from "@visx/shape"
-import { motion, useMotionTemplate, useSpring } from "motion/react"
-
-import { chartCssVars, useChart } from "./chart-context"
-import { ChartRevealClip } from "./chart-reveal-clip"
+import { curveNatural } from "@visx/curve";
+import { LinePath } from "@visx/shape";
 
 // CurveFactory type - simplified version compatible with visx
 // biome-ignore lint/suspicious/noExplicitAny: d3 curve factory type
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type CurveFactory = any
+type CurveFactory = any;
+
+import {
+  type RefObject,
+  useCallback,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import { chartCssVars, useChartStable, useYScale } from "./chart-context";
+import type { LoadingStyle } from "./chart-phase";
+import {
+  type FadeEdges,
+  fadeGradientStops,
+  resolveFadeSides,
+  viewportFadeGradientAttrs,
+} from "./fade-edges";
+import {
+  type LineLoadingPulseMode,
+  LineLoadingPulseStroke,
+  resolveLineLoadingPulseMode,
+} from "./line-loading-pulse";
+import { LINE_LOADING_LOOP_PAUSE_MS } from "./line-loading-timing";
+import { LineLoadingSweep } from "./loading-sweep";
+import {
+  resolveDashTailBounds,
+  usePathStrokeMetrics,
+} from "./path-stroke-utils";
+import { SeriesDashTailOverlay } from "./series-dash-tail-overlay";
+import { SeriesHighlightLayer } from "./series-highlight-layer";
+import { SeriesHoverDim } from "./series-hover-dim";
+import { SeriesMarkers } from "./series-markers";
+import type { SeriesPointMarkerStyle } from "./series-point-marker";
+import { useAnimatedSeriesPath } from "./use-animated-series-path";
 
 export interface LineProps {
-    /** Key in data to use for y values */
-    dataKey: string
-    /** Stroke color. Default: var(--chart-line-primary) */
-    stroke?: string
-    /** Stroke width. Default: 2.5 */
-    strokeWidth?: number
-    /** Curve function. Default: curveNatural */
-    curve?: CurveFactory
-    /** Whether to animate the line. Default: true */
-    animate?: boolean
-    /** Whether to fade edges with gradient. Default: true */
-    fadeEdges?: boolean
-    /** Whether to show highlight segment on hover. Default: true */
-    showHighlight?: boolean
+  /** Key in data to use for y values */
+  dataKey: string;
+  /** Y-scale group id (Recharts `yAxisId`). Default: `"left"`. */
+  yAxisId?: string | number;
+  /** Stroke color. Default: var(--chart-line-primary) */
+  stroke?: string;
+  /** Stroke width. Default: 2.5 */
+  strokeWidth?: number;
+  /** Curve function. Default: curveNatural */
+  curve?: CurveFactory;
+  /** Whether to animate the line. Default: true */
+  animate?: boolean;
+  /**
+   * Fade the line stroke toward transparent at the chart edges.
+   * - `true` fades both edges, `false` disables the fade entirely.
+   * - `"left"` / `"right"` fades only that side.
+   * Default: true
+   */
+  fadeEdges?: FadeEdges;
+  /** Whether to show highlight segment on hover. Default: true */
+  showHighlight?: boolean;
+  /** Render scatter-style circle markers at each data point. Default: false */
+  showMarkers?: boolean;
+  /** Marker styling (same options as Scatter). */
+  markers?: SeriesPointMarkerStyle;
+  /**
+   * Data index from which the line stroke becomes dashed (inclusive).
+   * Useful for projecting incomplete periods, e.g. dashed from yesterday through today.
+   */
+  dashFromIndex?: number;
+  /** Dash pattern for the tail segment when `dashFromIndex` is set. Default: "6,4" */
+  dashArray?: string;
+  /**
+   * Show the loading pulse overlay. Default: follows chart loading phase.
+   * Set `false` to disable even during loading.
+   */
+  loading?: boolean;
+  /** Stroke color for the loading pulse overlay. Default: var(--foreground) */
+  loadingStroke?: string;
+  /** Loading pulse stroke opacity. Default: 0.5 */
+  loadingStrokeOpacity?: number;
+  /** Override pulse animation mode (loop / exit / enter). */
+  loadingPulseMode?: LineLoadingPulseMode;
+  /** Called when a loop-mode pulse cycle completes. */
+  onLoadingPulseCycleComplete?: () => void;
+  /**
+   * Loading animation while the chart is in loading status: the default
+   * traveling `"pulse"`, or a diagonal `"sweep"` shimmer across the skeleton
+   * line. Default: `"pulse"`.
+   */
+  loadingStyle?: LoadingStyle;
+}
+
+function LineSeriesStroke({
+  animatedPathD,
+  curve,
+  getY,
+  pathRef,
+  renderData,
+  strokeWidth,
+  useDataTransitionPath,
+  visibleStroke,
+  xAccessor,
+  xScale,
+}: {
+  animatedPathD: string;
+  curve: CurveFactory;
+  getY: (datum: Record<string, unknown>) => number;
+  pathRef: RefObject<SVGPathElement | null>;
+  renderData: Record<string, unknown>[];
+  strokeWidth: number;
+  useDataTransitionPath: boolean;
+  visibleStroke: string;
+  xAccessor: (datum: Record<string, unknown>) => Date;
+  xScale: (value: Date) => number | undefined;
+}) {
+  if (useDataTransitionPath && animatedPathD) {
+    return (
+      <path
+        d={animatedPathD}
+        fill="none"
+        ref={pathRef}
+        stroke={visibleStroke}
+        strokeLinecap="round"
+        strokeWidth={strokeWidth}
+      />
+    );
+  }
+
+  return (
+    <LinePath
+      curve={curve}
+      data={renderData}
+      innerRef={pathRef}
+      stroke={visibleStroke}
+      strokeLinecap="round"
+      strokeWidth={strokeWidth}
+      x={(d) => xScale(xAccessor(d)) ?? 0}
+      y={getY}
+    />
+  );
+}
+
+function LineLoadingOverlays({
+  curve,
+  handleLoadingPulseComplete,
+  innerWidth,
+  loadingStroke,
+  loadingStrokeOpacity,
+  loadingStyle,
+  pathD,
+  pulseEpoch,
+  pulseMode,
+  showLoadingPulse,
+  strokeWidth,
+}: {
+  curve: CurveFactory;
+  handleLoadingPulseComplete: () => void;
+  innerWidth: number;
+  loadingStroke: string;
+  loadingStrokeOpacity: number;
+  loadingStyle: LoadingStyle;
+  pathD: string | null;
+  pulseEpoch: number;
+  pulseMode: LineLoadingPulseMode | null;
+  showLoadingPulse: boolean;
+  strokeWidth: number;
+}) {
+  const sweepLoading =
+    showLoadingPulse && innerWidth > 0 && loadingStyle === "sweep";
+  const pulseLoading = showLoadingPulse && innerWidth > 0 && !sweepLoading;
+
+  return (
+    <>
+      {sweepLoading ? (
+        <LineLoadingSweep
+          curve={curve}
+          key="loading-sweep"
+          mode={pulseMode ?? "loop"}
+          onTransitionComplete={handleLoadingPulseComplete}
+          stroke={loadingStroke}
+          strokeOpacity={loadingStrokeOpacity}
+          strokeWidth={strokeWidth}
+        />
+      ) : null}
+      {pulseLoading && pathD ? (
+        <LineLoadingPulseStroke
+          key="loading-pulse"
+          loopEpoch={pulseEpoch}
+          mode={pulseMode ?? undefined}
+          onCycleComplete={handleLoadingPulseComplete}
+          pathD={pathD}
+          stroke={loadingStroke}
+          strokeOpacity={loadingStrokeOpacity}
+          strokeWidth={strokeWidth}
+        />
+      ) : null}
+    </>
+  );
 }
 
 export function Line({
-                         dataKey,
-                         stroke = chartCssVars.linePrimary,
-                         strokeWidth = 2.5,
-                         curve = curveNatural,
-                         animate = true,
-                         fadeEdges = true,
-                         showHighlight = true,
-                     }: LineProps) {
-    const {
-        data,
-        xScale,
-        yScale,
-        innerHeight,
-        innerWidth,
-        tooltipData,
-        selection,
-        isLoaded,
-        enterTransition,
-        revealEpoch,
-        xAccessor,
-    } = useChart()
+  dataKey,
+  yAxisId,
+  stroke = chartCssVars.linePrimary,
+  strokeWidth = 2.5,
+  curve = curveNatural,
+  animate = true,
+  fadeEdges = true,
+  showHighlight = true,
+  showMarkers = false,
+  markers,
+  dashFromIndex,
+  dashArray = "6,4",
+  loading,
+  loadingStroke = chartCssVars.foreground,
+  loadingStrokeOpacity = 0.5,
+  loadingPulseMode,
+  onLoadingPulseCycleComplete,
+  loadingStyle = "pulse",
+}: LineProps) {
+  // Stable slice only: hover state lives inside `<SeriesHoverDim>` and
+  // `<SeriesHighlightLayer>` so this component (and its expensive
+  // <SeriesDashTailOverlay> child) does not re-render on cursor motion.
+  // The reveal-clip is now a single shared clipPath at the chart-shell
+  // level (`time-series-chart-shell.tsx`); we no longer render a per-line
+  // `<ChartRevealClip>` or read `revealEpoch` here.
+  const {
+    data,
+    renderData,
+    xScale,
+    innerHeight,
+    innerWidth,
+    xAccessor,
+    lines,
+    chartPhase,
+    notifyLoadingPulseComplete,
+    yDomainTweenDuration,
+  } = useChartStable();
+  const yScale = useYScale(yAxisId);
+  const useDataTransitionPath = animate && chartPhase === "ready";
+  const { pathD: animatedPathD } = useAnimatedSeriesPath({
+    chartPhase,
+    curve,
+    dataKey,
+    durationMs: yDomainTweenDuration,
+    enabled: useDataTransitionPath,
+    innerWidth,
+    renderData,
+    xAccessor,
+    xScale,
+    yScale,
+  });
 
-    const pathRef = useRef<SVGPathElement>(null)
-    const [pathLength, setPathLength] = useState(0)
-    // Cached `d` attribute of the main path, used to draw the highlight overlay
-    // without reading the DOM during render (which `pathRef.current.getAttribute`
-    // was doing before — a React anti-pattern that can desync under concurrent
-    // rendering).
-    const [pathD, setPathD] = useState("")
+  const phasePulseMode = resolveLineLoadingPulseMode(chartPhase);
+  const pulseMode =
+    loading === false
+      ? null
+      : (loadingPulseMode ?? (loading === true ? "loop" : phasePulseMode));
+  const showLoadingPulse = pulseMode != null;
+  const [pulseEpoch, setPulseEpoch] = useState(0);
+  const effectiveShowHighlight = showHighlight && !showLoadingPulse;
 
-    // Stable, SSR-safe unique ID for this line's gradient. `Math.random()` here
-    // previously produced a different ID on the server vs. the client, which is
-    // a hydration mismatch — `useId()` is guaranteed to match across both.
-    const reactId = useId()
-    const gradientId = `line-gradient-${dataKey}-${reactId.replace(/:/g, "")}`
+  const handleLoadingPulseComplete = useCallback(() => {
+    onLoadingPulseCycleComplete?.();
+    if (pulseMode === "loop") {
+      window.setTimeout(() => {
+        setPulseEpoch((epoch) => epoch + 1);
+      }, LINE_LOADING_LOOP_PAUSE_MS);
+      return;
+    }
+    notifyLoadingPulseComplete?.();
+  }, [notifyLoadingPulseComplete, onLoadingPulseCycleComplete, pulseMode]);
 
-    // biome-ignore lint/correctness/useExhaustiveDependencies: data, innerWidth
-    useEffect(() => {
-        if (pathRef.current && animate) {
-            const len = pathRef.current.getTotalLength()
-            if (len > 0) {
-                setPathLength(len)
-            }
-            setPathD(pathRef.current.getAttribute("d") ?? "")
-        }
-    }, [animate, data, innerWidth])
+  const seriesIndex = useMemo(() => {
+    const index = lines.findIndex((line) => line.dataKey === dataKey);
+    return index >= 0 ? index : 0;
+  }, [lines, dataKey]);
 
-    // Binary search to find path length at a given X coordinate
-    const findLengthAtX = useCallback(
-        (targetX: number): number => {
-            const path = pathRef.current
-            if (!path || pathLength === 0) {
-                return 0
-            }
-            let low = 0
-            let high = pathLength
-            const tolerance = 0.5
+  const pathRef = useRef<SVGPathElement>(null);
+  const { pathLength, pathD } = usePathStrokeMetrics(pathRef, [
+    renderData,
+    innerWidth,
+    dashFromIndex,
+    animate,
+    useDataTransitionPath ? animatedPathD : null,
+  ]);
 
-            while (high - low > tolerance) {
-                const mid = (low + high) / 2
-                const point = path.getPointAtLength(mid)
-                if (point.x < targetX) {
-                    low = mid
-                } else {
-                    high = mid
-                }
-            }
-            return (low + high) / 2
-        },
-        [pathLength]
-    )
+  const reactId = useId();
+  const gradientId = `line-gradient-${dataKey}-${reactId}`;
 
-    // Calculate segment bounds for highlight from either selection or hover
-    const segmentBounds = useMemo(() => {
-        if (!pathRef.current || pathLength === 0) {
-            return { startLength: 0, segmentLength: 0, isActive: false }
-        }
+  const getY = useCallback(
+    (d: Record<string, unknown>) => {
+      const value = d[dataKey];
+      return typeof value === "number" ? (yScale(value) ?? 0) : 0;
+    },
+    [dataKey, yScale]
+  );
 
-        // Selection takes priority over hover
-        if (selection?.active) {
-            const startLength = findLengthAtX(selection.startX)
-            const endLength = findLengthAtX(selection.endX)
-            return {
-                startLength,
-                segmentLength: endLength - startLength,
-                isActive: true,
-            }
-        }
+  const hasDashTail = resolveDashTailBounds(dashFromIndex, data.length);
+  const fadeSides = resolveFadeSides(fadeEdges);
+  const lineStroke = fadeSides.any ? `url(#${gradientId})` : stroke;
+  const fadeStops = fadeSides.any ? fadeGradientStops(fadeSides) : null;
+  const showSeriesStroke =
+    chartPhase === "revealing" ||
+    chartPhase === "ready" ||
+    chartPhase === "exitingReady";
+  let visibleStroke = "transparent";
+  if (showSeriesStroke && !hasDashTail) {
+    visibleStroke = lineStroke;
+  }
 
-        if (!tooltipData) {
-            return { startLength: 0, segmentLength: 0, isActive: false }
-        }
+  return (
+    <>
+      {fadeStops ? (
+        <defs>
+          <linearGradient
+            id={gradientId}
+            {...viewportFadeGradientAttrs(innerWidth)}
+          >
+            {fadeStops.map((stop) => (
+              <stop
+                key={stop.offset}
+                offset={stop.offset}
+                style={{ stopColor: stroke, stopOpacity: stop.opacity }}
+              />
+            ))}
+          </linearGradient>
+        </defs>
+      ) : null}
 
-        const idx = tooltipData.index
-        const startIdx = Math.max(0, idx - 1)
-        const endIdx = Math.min(data.length - 1, idx + 1)
+      <SeriesHoverDim
+        dimOpacity={0.3}
+        enabled={effectiveShowHighlight}
+        seriesIndex={seriesIndex}
+      >
+        <LineSeriesStroke
+          animatedPathD={animatedPathD}
+          curve={curve}
+          getY={getY}
+          pathRef={pathRef}
+          renderData={renderData}
+          strokeWidth={strokeWidth}
+          useDataTransitionPath={useDataTransitionPath}
+          visibleStroke={visibleStroke}
+          xAccessor={xAccessor}
+          xScale={xScale}
+        />
 
-        const startPoint = data[startIdx]
-        const endPoint = data[endIdx]
-        if (!(startPoint && endPoint)) {
-            return { startLength: 0, segmentLength: 0, isActive: false }
-        }
+        <SeriesDashTailOverlay
+          dashArray={dashArray}
+          dashFromIndex={dashFromIndex}
+          data={data}
+          innerHeight={innerHeight}
+          innerWidth={innerWidth}
+          pathD={pathD}
+          pathLength={pathLength}
+          stroke={lineStroke}
+          strokeWidth={strokeWidth}
+          xAccessor={xAccessor}
+          xScale={xScale}
+        />
+      </SeriesHoverDim>
 
-        const startX = xScale(xAccessor(startPoint)) ?? 0
-        const endX = xScale(xAccessor(endPoint)) ?? 0
+      {showMarkers ? (
+        <SeriesMarkers
+          animate={animate}
+          dataKey={dataKey}
+          {...markers}
+          fill={markers?.fill ?? stroke}
+          stroke={markers?.stroke ?? markers?.fill ?? stroke}
+        />
+      ) : null}
 
-        const startLength = findLengthAtX(startX)
-        const endLength = findLengthAtX(endX)
+      <SeriesHighlightLayer
+        enabled={effectiveShowHighlight}
+        height={innerHeight}
+        pathRef={pathRef}
+        stroke={stroke}
+        strokeWidth={strokeWidth}
+      />
 
-        return {
-            startLength,
-            segmentLength: endLength - startLength,
-            isActive: true,
-        }
-    }, [
-        tooltipData,
-        selection,
-        data,
-        xScale,
-        pathLength,
-        xAccessor,
-        findLengthAtX,
-    ])
-
-    // Springs for smooth highlight animation (both offset AND segment length)
-    const springConfig = { stiffness: 180, damping: 28 }
-    const offsetSpring = useSpring(0, springConfig)
-    const segmentLengthSpring = useSpring(0, springConfig)
-
-    // Update springs when segment bounds change
-    useEffect(() => {
-        offsetSpring.set(-segmentBounds.startLength)
-        segmentLengthSpring.set(segmentBounds.segmentLength)
-    }, [
-        segmentBounds.startLength,
-        segmentBounds.segmentLength,
-        offsetSpring,
-        segmentLengthSpring,
-    ])
-
-    // Create animated strokeDasharray using motion template
-    const animatedDasharray = useMotionTemplate`${segmentLengthSpring} ${pathLength}`
-
-    // Get y value for a data point
-    const getY = useCallback(
-        (d: Record<string, unknown>) => {
-            const value = d[dataKey]
-            return typeof value === "number" ? (yScale(value) ?? 0) : 0
-        },
-        [dataKey, yScale]
-    )
-
-    const isHovering = tooltipData !== null || selection?.active === true
-
-    return (
-        <>
-            {/* Gradient definition for fading edges */}
-            {fadeEdges && (
-                <defs>
-                    <linearGradient id={gradientId} x1="0%" x2="100%" y1="0%" y2="0%">
-                        <stop offset="0%" style={{ stopColor: stroke, stopOpacity: 0 }} />
-                        <stop offset="15%" style={{ stopColor: stroke, stopOpacity: 1 }} />
-                        <stop offset="85%" style={{ stopColor: stroke, stopOpacity: 1 }} />
-                        <stop offset="100%" style={{ stopColor: stroke, stopOpacity: 0 }} />
-                    </linearGradient>
-                </defs>
-            )}
-
-            {/* Clip path for grow animation - unique per line */}
-            {animate && data.length > 1 ? (
-                <defs>
-                    <ChartRevealClip
-                        clipPathId={`grow-clip-${dataKey}`}
-                        enterTransition={enterTransition}
-                        height={innerHeight + 20}
-                        revealEpoch={revealEpoch ?? 0}
-                        targetWidth={innerWidth}
-                        // Compensates for the round linecap: with `strokeLinecap="round"`
-                        // each end of the stroke extends ~strokeWidth/2 past the last data
-                        // point. Without this padding the clip-path cut exactly at
-                        // `innerWidth`, shaving off the rounded tip (most visible on the
-                        // most recent data point, at the right edge).
-                        padding={strokeWidth}
-                    />
-                </defs>
-            ) : null}
-
-            <g
-                clipPath={
-                    animate && data.length > 1 ? `url(#grow-clip-${dataKey})` : undefined
-                }
-            >
-                <motion.g
-                    animate={{ opacity: isHovering && showHighlight ? 0.3 : 1 }}
-                    initial={{ opacity: 1 }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                >
-                    <LinePath
-                        curve={curve}
-                        data={data}
-                        innerRef={pathRef}
-                        stroke={fadeEdges ? `url(#${gradientId})` : stroke}
-                        strokeLinecap="round"
-                        strokeWidth={strokeWidth}
-                        x={(d) => xScale(xAccessor(d)) ?? 0}
-                        y={getY}
-                    />
-                </motion.g>
-            </g>
-
-            {/* Highlight segment on hover */}
-            {showHighlight && isHovering && isLoaded && pathD && (
-                <motion.path
-                    animate={{ opacity: 1 }}
-                    d={pathD}
-                    exit={{ opacity: 0 }}
-                    fill="none"
-                    initial={{ opacity: 0 }}
-                    stroke={stroke}
-                    strokeLinecap="round"
-                    strokeWidth={strokeWidth}
-                    style={{
-                        strokeDasharray: animatedDasharray,
-                        strokeDashoffset: offsetSpring,
-                    }}
-                    transition={{ duration: 0.4, ease: "easeInOut" }}
-                />
-            )}
-        </>
-    )
+      <LineLoadingOverlays
+        curve={curve}
+        handleLoadingPulseComplete={handleLoadingPulseComplete}
+        innerWidth={innerWidth}
+        loadingStroke={loadingStroke}
+        loadingStrokeOpacity={loadingStrokeOpacity}
+        loadingStyle={loadingStyle}
+        pathD={pathD}
+        pulseEpoch={pulseEpoch}
+        pulseMode={pulseMode}
+        showLoadingPulse={showLoadingPulse}
+        strokeWidth={strokeWidth}
+      />
+    </>
+  );
 }
 
-Line.displayName = "Line"
+Line.displayName = "Line";
 
-export default Line
+export default Line;

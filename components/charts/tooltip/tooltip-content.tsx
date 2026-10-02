@@ -1,18 +1,19 @@
-"use client"
+"use client";
 
-import type { ReactNode } from "react"
+import type { ReactNode } from "react";
+import { intFmt } from "../chart-formatters";
 
 export interface TooltipRow {
-  color: string
-  label: string
-  value: string | number
+  color: string;
+  label: string;
+  value: string | number;
 }
 
 export interface TooltipContentProps {
-  title?: string
-  rows: TooltipRow[]
+  title?: string;
+  rows: TooltipRow[];
   /** Optional additional content (e.g., markers) */
-  children?: ReactNode
+  children?: ReactNode;
 }
 
 export function TooltipContent({ title, rows, children }: TooltipContentProps) {
@@ -20,7 +21,7 @@ export function TooltipContent({ title, rows, children }: TooltipContentProps) {
     <div className="overflow-hidden">
       <div className="px-3 py-2.5">
         {title && (
-          <div className="mb-2 text-xs font-medium text-chart-tooltip-foreground">
+          <div className="mb-2 text-left font-medium text-chart-tooltip-foreground text-xs">
             {title}
           </div>
         )}
@@ -35,14 +36,12 @@ export function TooltipContent({ title, rows, children }: TooltipContentProps) {
                   className="h-2.5 w-2.5 shrink-0 rounded-full"
                   style={{ backgroundColor: row.color }}
                 />
-                <span className="text-sm text-chart-tooltip-muted">
+                <span className="text-chart-tooltip-muted text-sm">
                   {row.label}
                 </span>
               </div>
-              <span className="text-sm font-medium text-chart-tooltip-foreground tabular-nums">
-                {typeof row.value === "number"
-                  ? row.value.toLocaleString()
-                  : row.value}
+              <span className="font-medium text-chart-tooltip-foreground text-sm tabular-nums">
+                {typeof row.value === "number" ? intFmt(row.value) : row.value}
               </span>
             </div>
           ))}
@@ -55,9 +54,9 @@ export function TooltipContent({ title, rows, children }: TooltipContentProps) {
         )}
       </div>
     </div>
-  )
+  );
 }
 
-TooltipContent.displayName = "TooltipContent"
+TooltipContent.displayName = "TooltipContent";
 
-export default TooltipContent
+export default TooltipContent;
