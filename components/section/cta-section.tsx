@@ -13,8 +13,8 @@ const CtaSection = () => {
                             Still scrolling?
                             <br />
                             <span className="text-muted-foreground">
-                            Let&apos;s build something.
-                        </span>
+                                Let&apos;s build something.
+                            </span>
                         </h2>
 
                         <p className="mt-6 max-w-xl text-base leading-7 text-muted-foreground md:text-lg">
@@ -27,12 +27,17 @@ const CtaSection = () => {
                             a good conversation about code, I&apos;m always open to it.
                         </p>
 
-                        <div className="mt-8 inline-flex items-center gap-2 rounded-lg border bg-background/60 px-4 py-3 font-mono text-xs text-muted-foreground">
-                            <GitCommitHorizontal size={15} />
+                        <div className="mt-8 inline-flex items-center gap-2 rounded-lg border bg-background/60 px-4 py-3 font-mono text-xs">
+                            <GitCommitHorizontal size={15} className="text-muted-foreground" />
 
                             <span>
-                            git commit -m &quot;Let&apos;s build something&quot;
-                        </span>
+                                <span className="text-yellow-500">git</span>{" "}
+                                <span >commit</span>{" "}
+                                <span className="text-gray-500">-m</span>{" "}
+                                <span className="text-cyan-500">
+                                    &quot;Let&apos;s build something&quot;
+                                </span>
+                            </span>
                         </div>
 
                         <div className="mt-8 flex flex-wrap gap-3">

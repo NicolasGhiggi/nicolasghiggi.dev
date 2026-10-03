@@ -16,8 +16,8 @@ type InsightsChartProps = {
 }
 
 const InsightsChart = ({ data }: InsightsChartProps) => {
-    const primaryColor = "var(--chart-line-primary, #2563eb)"
-    const secondaryColor = "var(--chart-line-secondary, #93c5fd)"
+    const primaryColor = "var(--chart-line-primary)"
+    const secondaryColor = "var(--chart-line-secondary)"
 
     if (data && data.length === 0) {
         return (
@@ -31,7 +31,7 @@ const InsightsChart = ({ data }: InsightsChartProps) => {
 
     return (
         <figure className="m-0">
-            <LineChart data={data}>
+            <LineChart data={data} className="h-64" margin={{ top: 16 }}>
                 <Grid horizontal />
 
                 <Line
@@ -50,7 +50,7 @@ const InsightsChart = ({ data }: InsightsChartProps) => {
                     curve={curveMonotoneX}
                 />
 
-                <XAxis />
+                {/*<XAxis />*/}
 
                 <ChartTooltip
                     rows={(point) => [
@@ -65,6 +65,9 @@ const InsightsChart = ({ data }: InsightsChartProps) => {
                             color: secondaryColor,
                         },
                     ]}
+                    indicatorColor="var(--color-primary)"
+                    backgroundColor="var(--card-background)"
+                    className="border border-border rounded-lg"
                 />
             </LineChart>
         </figure>

@@ -63,11 +63,11 @@ const InsightsSection = async () => {
             </CardHeader>
 
             <CardContent className="p-0">
-                <dl className="grid grid-cols-2 divide-x divide-border/40 md:grid-cols-4 md:divide-y-0">
+                <dl className="grid grid-cols-2 divide-x px-2 divide-border/40 md:grid-cols-4">
                     {metrics.map((metric) => (
                         <Metric
                             key={metric.label}
-                            className="flex flex-col justify-between p-4.5 transition-colors hover:bg-muted/20"
+                            className="flex flex-col justify-between"
                         >
                             <MetricLabel className="flex items-center justify-between text-xs font-medium text-muted-foreground">
                                 <span>{metric.label}</span>
