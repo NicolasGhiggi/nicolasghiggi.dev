@@ -31,7 +31,9 @@ import {
     SiGooglegemini,
     SiClaude,
     SiShadcnui,
-    SiBaseui, SiFlask,
+    SiBaseui, 
+    SiFlask,
+    SiAuth0,
 } from "react-icons/si"
 import { FaJava } from "react-icons/fa"
 import { BsOpenai } from "react-icons/bs"
@@ -150,6 +152,7 @@ const stacks = [
             { name: "Node.js", icon: SiNodedotjs },
             { name: "Laravel", icon: SiLaravel },
             { name: "Flask", icon: SiFlask },
+            { name: "Auth0", icon: SiAuth0 },
         ],
     },
     {
