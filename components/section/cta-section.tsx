@@ -1,9 +1,17 @@
+"use client"
+
 import Link from "next/link"
 import { ArrowUpRight, GitCommitHorizontal } from "lucide-react"
-import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { CodeBlock, CodeBlockContent, CodeBlockLine } from "@/components/ui/code-block"
+import { useHighlightedCode } from "@/hooks/use-highlighted-code"
+
+const terminal = `git commit -m "Let's build something"`
 
 const CtaSection = () => {
+    const lines = useHighlightedCode(terminal, "bash")
+
     return (
         <section className="w-full max-w-3xl mx-auto">
             <Card>
@@ -26,19 +34,11 @@ const CtaSection = () => {
                             Whether it&apos;s a project, a collaboration, or just
                             a good conversation about code, I&apos;m always open to it.
                         </p>
-
-                        <div className="mt-8 inline-flex items-center gap-2 rounded-lg border bg-background/60 px-4 py-3 font-mono text-xs">
-                            <GitCommitHorizontal size={15} className="text-muted-foreground" />
-
-                            <span>
-                                <span className="text-yellow-500">git</span>{" "}
-                                <span >commit</span>{" "}
-                                <span className="text-gray-500">-m</span>{" "}
-                                <span className="text-cyan-500">
-                                    &quot;Let&apos;s build something&quot;
-                                </span>
-                            </span>
-                        </div>
+                        <CodeBlock className="mt-8">
+                            <CodeBlockContent>
+                                <CodeBlockLine>{lines}</CodeBlockLine> 
+                            </CodeBlockContent>
+                        </CodeBlock>
 
                         <div className="mt-8 flex flex-wrap gap-3">
                             <Link
