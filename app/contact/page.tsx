@@ -48,14 +48,10 @@ const Page = () => {
 
     return (
         <main className="w-full max-w-3xl flex flex-col items-center py-24 px-4 gap-10">
-            <div className="w-full space-y-4">
-                <Badge variant="outline" className="text-sm h-7 p-1 pr-2">
-                    <span className="relative flex size-5 items-center justify-center">
-                        <span className="absolute z-10 top-1/2 left-1/2 size-3 rounded-full bg-emerald-500 animate-radar-pulse transform -translate-1/2"/>
-                        <span className="relative z-10 size-2 rounded-full bg-emerald-500"/>
-                    </span>
-                    Available for new projects
-                </Badge>
+            <header className="w-full flex flex-col gap-3">
+                <p className="font-mono text-sm text-muted-foreground">
+                    Contact
+                </p>
                 <H1>
                     Let's work together
                 </H1>
@@ -63,7 +59,7 @@ const Page = () => {
                     Have an idea, a project, or just want to say hello?
                     Feel free to send me a message.
                 </p>
-            </div>
+            </header>
             <Card className="w-full max-w-3xl">
                 <CardHeader>
                     <CardTitle>Contact me</CardTitle>
