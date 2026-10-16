@@ -16,66 +16,65 @@ const HeroSection = () => {
     const [greeting, setGreeting] = useState("Hello")
 
     useEffect(() => {
-        const fetchGreeting = () => setGreeting(getGreeting())
-        fetchGreeting()
+        setGreeting(getGreeting())
     }, [])
 
     return (
-        <section className="flex xl:min-h-screen w-full max-w-5xl pt-24 flex-col items-center justify-center gap-12 md:flex-row md:justify-between md:gap-16">
-            <div className="flex max-w-2xl flex-col gap-6 text-center md:text-left">
-                <div>
-                    <p className="mb-3 font-mono text-sm text-muted-foreground">
+        <section className="flex w-full max-w-3xl flex-col justify-center gap-10 pt-24">
+            {/* 1. Identity block: avatar + greeting, name and role */}
+            <header className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:gap-8 sm:text-left">
+                <Image
+                    src={ProfileImage}
+                    alt="Nicolas Ghiggi"
+                    size="w-32 sm:w-50"
+                    aspect="aspect-[2/3]"
+                    rounded="rounded-3xl"
+                    loading="eager"
+                />
+
+                <div className="flex flex-col gap-2">
+                    <p className="font-mono text-sm text-muted-foreground">
                         {greeting}, I&#39;m
                     </p>
 
-                    <h1 className="text-4xl font-bold tracking-tight sm:text-6xl lg:text-7xl">
+                    <h1 className="text-balance text-4xl font-bold tracking-tight sm:text-6xl">
                         {USER.name}
                     </h1>
 
-                    <h2 className="mt-3 text-xl font-semibold text-muted-foreground sm:text-3xl lg:text-4xl">
+                    <h2 className="text-lg font-medium text-muted-foreground sm:text-2xl">
                         {USER.qualification}
                     </h2>
                 </div>
+            </header>
 
-                <FlipSentences className="h-6 justify-center md:justify-start">
-                    {USER.sentences}
-                </FlipSentences>
-
-                <p className="max-w-xl text-base text-muted-foreground sm:text-lg">
+            {/* 2. Pitch: description first, animated tagline as a highlight */}
+            <div className="flex flex-col gap-5 text-center sm:text-left">
+                <p className="text-pretty text-lg leading-relaxed text-muted-foreground sm:text-xl">
                     I build modern web applications with React, Next.js,
                     TypeScript and Laravel, focusing on clean architecture,
                     performance and user experience.
                 </p>
 
-                <div className="flex flex-col gap-3 sm:flex-row sm:justify-center md:justify-start">
-                    <Link
-                        href="/contact"
-                    >
-                        <Button size="lg">
-                            Get in touch
-                            <ArrowUpRight />
-                        </Button>
-                    </Link>
-
-                    <Link
-                        href="/projects"
-                    >
-                        <Button variant="outline" size="lg">
-                            View projects
-                        </Button>
-                    </Link>
-                </div>
+                <FlipSentences className="h-6 justify-center font-mono text-sm text-foreground sm:justify-start">
+                    {USER.sentences}
+                </FlipSentences>
             </div>
 
-            <Image
-                src={ProfileImage}
-                alt="Nicolas Ghiggi"
-                size="w-56 sm:w-72 md:w-80"
-                aspect="aspect-[2/3]"
-                rounded="rounded-3xl"
-                loading="eager"
-                reflex
-            />
+            {/* 3. Actions: separated by a divider, primary first */}
+            <div className="flex justify-center gap-3 border-t pt-8 sm:justify-start">
+                <Link href="/contact">
+                    <Button size="lg">
+                        Get in touch
+                        <ArrowUpRight />
+                    </Button>
+                </Link>
+
+                <Link href="/projects">
+                    <Button variant="outline" size="lg">
+                        View projects
+                    </Button>
+                </Link>
+            </div>
         </section>
     )
 }

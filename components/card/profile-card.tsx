@@ -14,9 +14,9 @@ import {
 import {
     Card,
     CardContent,
-    CardFooter, 
+    CardFooter,
     CardHeader,
-    CardTitle, 
+    CardTitle,
     CardAction
 } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -42,15 +42,6 @@ const ProfileCard = () => {
                 <CardTitle className="font-heading">
                     Overview
                 </CardTitle>
-                <CardAction>
-                    <Badge variant="outline" className="text-sm h-7 p-1 pr-2">
-                    <span className="relative flex size-5 items-center justify-center">
-                        <span className="absolute z-10 top-1/2 left-1/2 size-3 rounded-full bg-emerald-500 animate-radar-pulse transform -translate-1/2"/>
-                        <span className="relative z-10 size-2 rounded-full bg-emerald-500"/>
-                    </span>
-                    Available for new projects
-                </Badge>
-                </CardAction>
             </CardHeader>
             <CardContent className="space-y-6">
                 <p className="text-muted-foreground leading-relaxed">
@@ -61,15 +52,15 @@ const ProfileCard = () => {
                 </p>
                 <div className="flex flex-wrap gap-2">
                     <Badge variant="secondary">
-                        <Code2 className="mr-1 size-4"/>
+                        <Code2 className="mr-1 size-4" />
                         Full Stack Developer
                     </Badge>
                     <Badge variant="secondary">
-                        <GraduationCap className="mr-1 size-4"/>
+                        <GraduationCap className="mr-1 size-4" />
                         Computer Engineering
                     </Badge>
                     <Badge variant="secondary">
-                        <ShieldCheck className="mr-1 size-4"/>
+                        <ShieldCheck className="mr-1 size-4" />
                         Swiss Army Sergeant
                     </Badge>
                 </div>
@@ -113,7 +104,7 @@ const ProfileCard = () => {
                                     <social.icon />
                                 </Button>
                             </Link>
-                        }/>
+                        } />
                         <TooltipContent>
                             {social.label}
                         </TooltipContent>
