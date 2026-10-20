@@ -188,7 +188,9 @@ This is a personal portfolio, but suggestions and bug reports are welcome. Feel 
 
 ## License
 
-No license has been specified for this repository yet. All rights reserved by the author unless stated otherwise.
+This project is licensed under the [MIT License](LICENSE).
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, subject to the terms of the MIT License.
 
 ## Author
 
