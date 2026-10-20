@@ -2,7 +2,7 @@
   <img alt="nicolasghiggi.dev" src="https://shieldcn.dev/header/grid.svg?title=nicolasghiggi.dev&amp;subtitle=A+clean+dev+portfolio&amp;mode=dark&amp;align=left" />
 </p>
 
-<a href="https://github.com/vercel/next.js"><picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/vercel/next.js/license.svg?variant=outline&amp;font=geist" /><img alt="license" src="https://shieldcn.dev/github/vercel/next.js/license.svg?variant=outline&amp;mode=light&amp;font=geist" /></picture></a>
+<a href="https://github.com/NicolasGhiggi/nicolasghiggi.dev/blob/main/LICENSE"><picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/vercel/next.js/license.svg?variant=outline&amp;font=geist" /><img alt="license" src="https://shieldcn.dev/github/vercel/next.js/license.svg?variant=outline&amp;mode=light&amp;font=geist" /></picture></a>
 <picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/github/stars/NicolasGhiggi/nicolasghiggi.dev.svg?variant=outline&amp;font=geist" /><img alt="GitHub Stars" src="https://shieldcn.dev/github/stars/NicolasGhiggi/nicolasghiggi.dev.svg?variant=outline&amp;mode=light&amp;font=geist" /></picture>
 <a href="https://github.com/NicolasGhiggi/nicolasghiggi.dev"><picture><source media="(prefers-color-scheme: dark)" srcset="https://shieldcn.dev/views/repo/NicolasGhiggi/nicolasghiggi.dev.svg?variant=outline&amp;font=geist" /><img alt="repo views" src="https://shieldcn.dev/views/repo/NicolasGhiggi/nicolasghiggi.dev.svg?variant=outline&amp;mode=light&amp;font=geist" /></picture></a>
 
