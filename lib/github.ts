@@ -4,7 +4,6 @@ import { SOURCE_CODE_GITHUB_REPO } from "@/data/app"
 const getStargazerCount = unstable_cache(
     async () => {
         try {
-            console.debug(process.env.GITHUB_API_TOKEN)
             const response = await fetch(
                 `https://api.github.com/repos/${SOURCE_CODE_GITHUB_REPO}`,
                 {
