@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button"
 import { Map, MapControls } from "@/components/ui/map"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
 import { Field, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field"
-import { Card, CardHeader, CardTitle , CardDescription, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card"
 import { InputGroup, InputGroupAddon, InputGroupInput, InputGroupText, InputGroupTextarea } from "@/components/ui/input-group"
 
 import { USER } from "@/data/app"
@@ -29,6 +29,7 @@ const Page = () => {
             email: "",
             subject: "",
             message: "",
+            hpToken: "",
         }
     })
 
@@ -38,7 +39,7 @@ const Page = () => {
             console.log(res);
             toast.success(res.data.message);
             form.reset();
-            
+
         } catch (error: any) {
             toast.error(
                 error.response?.data?.message ?? "Something went wrong"
@@ -124,7 +125,7 @@ const Page = () => {
                             />
                         </FieldGroup>
                         <FieldGroup>
-                            <Controller 
+                            <Controller
                                 name="subject"
                                 control={form.control}
                                 render={({ field, fieldState }) => (
@@ -147,7 +148,7 @@ const Page = () => {
                                     </Field>
                                 )}
                             />
-                            <Controller 
+                            <Controller
                                 name="message"
                                 control={form.control}
                                 render={({ field, fieldState }) => (
@@ -178,6 +179,22 @@ const Page = () => {
                                 )}
                             />
                         </FieldGroup>
+                        <div className="sr-only" aria-hidden="true">
+                            <label htmlFor="form-contact-hpToken">hpToken</label>
+                            <input
+                                id="form-contact-hpToken"
+                                type="text"
+                                tabIndex={-1}
+                                autoComplete="off"
+                                {...form.register("hpToken")}
+                            />
+                        </div>
+                        <p className="text-xs text-muted-foreground">
+                            Your details are used only to reply to your message.{" "}
+                            <Link href="/privacy" className="underline underline-offset-4">
+                                Privacy policy
+                            </Link>
+                        </p>
                     </form>
                 </CardContent>
                 <CardFooter className="flex items-center justify-between gap-2">
@@ -209,7 +226,7 @@ const Page = () => {
                                     <p>{social.label}</p>
                                 </TooltipContent>
                             </Tooltip>
-                            
+
                         ))}
                     </Field>
                 </CardFooter>
@@ -227,11 +244,11 @@ const Page = () => {
                     <div className="w-full aspect-video rounded-xl overflow-hidden ring-1 ring-foreground/10">
                         <Map center={[8.76, 46.17]} zoom={13}>
                             <MapControls
-                              position="top-right"
-                              showZoom
-                              showCompass
-                              showLocate
-                              showFullscreen
+                                position="top-right"
+                                showZoom
+                                showCompass
+                                showLocate
+                                showFullscreen
                             />
                         </Map>
                     </div>
